@@ -1,0 +1,6834 @@
+---
+openapi: "3.0.0"
+info:
+  title: "Swagger Petstore"
+  description: "This is a HRMS2020 server.  You can find out more about Swagger at\n\
+    [http://swagger.io](http://swagger.io) or on\n[irc.freenode.net, #swagger](http://swagger.io/irc/).\n"
+  termsOfService: "http://swagger.io/terms/"
+  contact:
+    email: "apiteam@swagger.io"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+  version: "1.0.0"
+servers:
+- url: "https://virtserver.swaggerhub.com/HRMS-Development2020/hrmsDev2020/1.0.0"
+  description: "API Mocking for HRMS"
+- url: "https://petstore.swagger.io/v2"
+tags:
+- name: "web"
+  description: "define restful apis for frontend"
+- name: "gateway"
+  description: "define restful apis for frontend"
+paths:
+  /web/corporation/queryCorporationList.do:
+    post:
+      tags:
+      - "web"
+      summary: "legal entity"
+      operationId: "get legal entities"
+      responses:
+        "405":
+          description: "invalid input"
+        "500":
+          description: "server error"
+      security:
+      - petstore_auth:
+        - "write:pets"
+        - "read:pets"
+  /web/gateway/organization/api/v1/organization/tree.do:
+    get:
+      tags:
+      - "web"
+      summary: "get department tree data structure"
+      operationId: "department tree structure"
+      parameters:
+      - name: "noVirtual"
+        in: "query"
+        description: "is virtual"
+        required: false
+        style: "form"
+        explode: true
+        schema:
+          type: "boolean"
+      - name: "showLevel"
+        in: "query"
+        description: "show children depth"
+        required: false
+        style: "form"
+        explode: true
+        schema:
+          type: "string"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Organization"
+        "400":
+          description: "invalid status value"
+  /web/companySite/getCompanySiteList.do:
+    post:
+      tags:
+      - "web"
+      summary: "get company list"
+      operationId: "company list"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CompanyList"
+        "400":
+          description: "invalid status value"
+  /web/gateway/organization/api/v1/organization/list.do:
+    get:
+      tags:
+      - "web"
+      summary: "get organization list for org-chart"
+      operationId: "list for org-chart"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrganizationList"
+  /web/position/getJobCategoryList.do:
+    get:
+      tags:
+      - "web"
+      summary: "get job categories"
+      operationId: "get job categories"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CategoryList"
+  /web/position/getPositionGradeList.do:
+    get:
+      tags:
+      - "web"
+      summary: "get position grade list"
+      operationId: "get postion grade list"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PositionGradeList"
+  /web/position/getJobList.do:
+    post:
+      tags:
+      - "web"
+      summary: "get job list of the company"
+      operationId: "get the job list"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/JobList"
+  /web/gateway/organization/aggregate/v1/companyPosition/search:
+    post:
+      tags:
+      - "web"
+      summary: "get the job collection"
+      operationId: "get the job collection"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CompanyPosition"
+  /web/gateway/roster/api/staffRoster/getBasicSetting:
+    get:
+      tags:
+      - "web"
+      summary: "set organization"
+      operationId: "set organization"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BasicSetting"
+  /web/gateway/roster/aggregate/v1/staffs/search:
+    post:
+      tags:
+      - "web"
+      summary: "get staff list"
+      operationId: "get staff list"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/SearchStaff"
+  /web/gateway/roster/api/common/getFlexMetaData:
+    get:
+      tags:
+      - "web"
+      summary: "get staff flex meta data"
+      operationId: "get staff flex meta data"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StaffFlexMetaData"
+  /web/gateway/roster/aggregate/v1/educations/search:
+    post:
+      tags:
+      - "web"
+      summary: "get staff education experience"
+      operationId: "get staff education experience"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SearchEducation"
+  /web/gateway/roster/aggregate/v1/experiences:
+    post:
+      tags:
+      - "web"
+      summary: "Add a work experience of staff"
+      operationId: "add work experience"
+      requestBody:
+        $ref: "#/components/requestBodies/WorkExperience"
+      responses:
+        "405":
+          description: "invalid input"
+      security:
+      - petstore_auth:
+        - "write:pets"
+        - "write:pets"
+  /web/gateway/roster/aggregate/v1/experiences/search:
+    post:
+      tags:
+      - "web"
+      summary: "search staff work experience"
+      operationId: "search staff work experience"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SearchWorkExperience"
+  /web/certificate/saveCertificate.do:
+    post:
+      tags:
+      - "web"
+      summary: "add an employee certificate"
+      operationId: "add an employee certificate"
+      requestBody:
+        $ref: "#/components/requestBodies/EmployeeCertificate"
+      responses:
+        "200":
+          description: "OK"
+        "405":
+          description: "invalid input"
+      security:
+      - petstore_auth:
+        - "write:pets"
+        - "write:pets"
+  /web/gateway/roster/api//certificate/getCertificateList:
+    post:
+      tags:
+      - "web"
+      summary: "get employee certificate list"
+      operationId: "get employee certificate list"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EmployeeCertificateData"
+  /web/gateway/roster/aggregate/v1/contracts/search:
+    post:
+      tags:
+      - "web"
+      summary: "get contract info"
+      operationId: "get contract info"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ContractInfo"
+  /web/gateway/web/common/staffSelector/search.do:
+    post:
+      tags:
+      - "web"
+      summary: "select staff in new agreement"
+      operationId: "select staff in new agreement"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SelectorStaff"
+  /web/gateway/roster/aggregate/v1/agreement/search:
+    post:
+      tags:
+      - "web"
+      summary: "get all agreements set in unique company"
+      operationId: "get all agreements"
+      parameters:
+      - name: "companyId"
+        in: "query"
+        description: "company id"
+        required: false
+        style: "form"
+        explode: true
+        schema:
+          type: "string"
+      - name: "userId"
+        in: "query"
+        description: "user id"
+        required: false
+        style: "form"
+        explode: true
+        schema:
+          type: "string"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/StaffAgreement"
+  /web/gateway/roster/aggregate/v1/agreements:
+    post:
+      tags:
+      - "web"
+      summary: "add new staff agreement"
+      operationId: "add new staff agreement"
+      parameters:
+      - name: "companyId"
+        in: "query"
+        required: false
+        style: "form"
+        explode: true
+        schema:
+          type: "string"
+      - name: "userId"
+        in: "query"
+        required: false
+        style: "form"
+        explode: true
+        schema:
+          type: "string"
+      requestBody:
+        $ref: "#/components/requestBodies/AddStaffAgreement"
+      responses:
+        "200":
+          description: "OK"
+      security:
+      - petstore_auth:
+        - "write:pets"
+        - "write:pets"
+  /web/gateway/roster/aggregate/v1/entryForms/search:
+    post:
+      tags:
+      - "web"
+      summary: "search entry form"
+      operationId: "search entry form"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SearchEntryForm"
+  /web/gateway/roster/api/entryWaitForm/addEntryWaitForm:
+    post:
+      tags:
+      - "web"
+      summary: "add entry form"
+      operationId: "add entry form"
+      requestBody:
+        $ref: "#/components/requestBodies/AddEntryForm"
+      responses:
+        "200":
+          description: "OK"
+      security:
+      - petstore_auth:
+        - "write:pets"
+        - "write:pets"
+  /web/flexible/metaData/list.do:
+    get:
+      tags:
+      - "web"
+      summary: "get meta data list for all"
+      operationId: "get meta data list for all"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CustomMetaDataListItem"
+  /web/flexible/metaData/getFlexMetaData.do:
+    post:
+      tags:
+      - "web"
+      summary: "get metaData for staff info"
+      operationId: "get metaData for staff info"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CustomMetaDataListItem"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StaffMetaData"
+      security:
+      - petstore_auth:
+        - "write:pets"
+        - "read:pets"
+  /web/gateway/roster/api/entry/getAllEntryMetaData:
+    get:
+      tags:
+      - "web"
+      summary: "get all entry meta data"
+      operationId: "get all entry meta data"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AllEntryMetaData"
+  /web/gateway/insurance/api/companyBenefits/getCompanyGroups:
+    get:
+      tags:
+      - "web"
+      summary: "get company benefit items"
+      operationId: "get company benefit items"
+      parameters:
+      - name: "category"
+        in: "query"
+        required: false
+        style: "form"
+        explode: true
+        schema:
+          type: "string"
+          example: "SI"
+      - name: "divisionId"
+        in: "query"
+        required: false
+        style: "form"
+        explode: true
+        schema:
+          type: "string"
+          example: "2"
+      - name: "enabled"
+        in: "query"
+        required: false
+        style: "form"
+        explode: true
+        schema:
+          type: "boolean"
+          example: true
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BenefitData"
+  /web/gateway/insurance/api/companyBenefits/save:
+    post:
+      tags:
+      - "web"
+      summary: "save the company benefit"
+      operationId: "save the company benefit"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CompanyBenefitSaveData"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CompanyBenefitSaveResponse"
+      security:
+      - petstore_auth:
+        - "write:pets"
+        - "read:pets"
+  /web/gateway/insurance/api/companyBenefits/search:
+    post:
+      tags:
+      - "web"
+      summary: "search referenced company benefit items"
+      operationId: "search referenced company benefit items"
+      parameters:
+      - name: "_category"
+        in: "query"
+        required: false
+        style: "form"
+        explode: true
+        schema:
+          type: "string"
+          example: "SI"
+      - name: "pageNo"
+        in: "query"
+        required: false
+        style: "form"
+        explode: true
+        schema:
+          type: "integer"
+          example: 1
+      - name: "pageSize"
+        in: "query"
+        required: false
+        style: "form"
+        explode: true
+        schema:
+          type: "integer"
+          example: 50
+      - name: "projection"
+        in: "query"
+        required: false
+        style: "form"
+        explode: true
+        schema:
+          type: "string"
+          example: "list"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SavedCompanyBenefitData"
+  /web/gateway/cnb/aggregate/staffBenefits/list/inService:
+    post:
+      tags:
+      - "web"
+      summary: "get staff benefit list in service"
+      operationId: "get staff benefit list in service"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StaffBenefit"
+  /web/gateway/cnb/aggregate/staffBenefits/list/quit:
+    post:
+      tags:
+      - "web"
+      summary: "get staff benefit list in quit"
+      operationId: "get staff benefit list in quit"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StaffBenefit"
+  /gateway/cnb/aggregate/siMemberPlans/list:
+    post:
+      tags:
+      - "gateway"
+      summary: "get list additions and reductions"
+      operationId: "get list additions and reductions"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SiMemberPlan"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SiMemberPlanList"
+  /web/gateway/payroll/api/companySalaryfieldMetas/list:
+    post:
+      tags:
+      - "web"
+      summary: "get company salary field metas"
+      operationId: "get company salary field metas"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CompanySalaryFieldMetas"
+  /gateway/cnb/aggregate/payrollInfo/list/currentEffective:
+    post:
+      tags:
+      - "gateway"
+      summary: "get current effective payroll info list"
+      operationId: "get current effective payroll info list"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CurrentEffectivePayrollInfo"
+  /web/gateway/cnb/aggregate/cumulTax/list:
+    post:
+      tags:
+      - "web"
+      summary: "get accumulated taxable income"
+      operationId: "get accumulated taxable income"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AccumulatedTaxableIncome"
+  /web/gateway/payroll/api/payslipResults/search:
+    post:
+      tags:
+      - "web"
+      summary: "get company payslip"
+      operationId: "get company payslip"
+      parameters:
+      - name: "projection"
+        in: "query"
+        required: false
+        style: "form"
+        explode: true
+        schema:
+          type: "string"
+          example: "payslipResultProjection"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CompanyPayslipResult"
+  /web/gateway/attendance/api/schedule/actual/getAllGroupShift:
+    get:
+      tags:
+      - "web"
+      summary: "get all groupshift"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AllGroupShiftData"
+  /web/gateway/attendance/aggregate/schedule/actual/getActualList:
+    post:
+      tags:
+      - "web"
+      summary: "get actual list"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ActualListData"
+  /web/gateway/attendance/api/attendance/sign/record/getSignRecordList:
+    post:
+      tags:
+      - "web"
+      summary: "get sign record list"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SignRecordData"
+  /web/gateway/attendance/api/overtimeForm/addOvertimeForm:
+    post:
+      tags:
+      - "web"
+      summary: "add overtime reality"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OvertimeForm"
+      responses:
+        "200":
+          description: "OK"
+  /web/gateway/attendance/api/web/api/vacations/v1/search:
+    post:
+      tags:
+      - "web"
+      summary: "search vacation realities"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/VacationData"
+  /web/gateway/attendance/api/attendance/daily/getDailyReportInfoList:
+    post:
+      tags:
+      - "web"
+      summary: "get day report info list"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DailyReportInfoList"
+  /web/gateway/attendance/api/attendance/period/instance/getPeriodReportList:
+    post:
+      tags:
+      - "web"
+      summary: "get period report info list"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PeriodReportInfoList"
+  /web/gateway/attendance/api/overtimeMonthlyAccount/getOvertimeMonthlySummary:
+    post:
+      tags:
+      - "web"
+      summary: "get overtime monthly"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OvertimeMonthlySummary"
+  /web/leaveHasUse/serarcLeaveHasUseByCondition.do:
+    post:
+      tags:
+      - "web"
+      summary: "report left realities"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SerarcLeaveHasUseByCondition"
+  /web/leaveSickBill/getSickBillPage.do:
+    post:
+      tags:
+      - "web"
+      summary: "report sick realities"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SickBillPage"
+  /web/gateway/attendance/api/schedule/calendar/getCalendarList.do:
+    get:
+      tags:
+      - "web"
+      summary: "get calendar list"
+      operationId: "get calendar list"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CalendarList"
+  /web/gateway/attendance/api/schedule/shift/getShiftList:
+    post:
+      tags:
+      - "web"
+      summary: "get shift list"
+      operationId: "get shift list"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ShiftList"
+  /web/gateway/attendance/api/schedule/group/getGroupList.do:
+    post:
+      tags:
+      - "web"
+      summary: "get group list"
+      operationId: "get group list"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GroupList"
+  /web/gateway/attendance/api/schedule/signCondition/v1/search:
+    post:
+      tags:
+      - "web"
+      summary: "get sign condition"
+      operationId: "get sign condition"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SignCondition"
+  /web/gateway/attendance/api/leaveSetting/vacation/rules:
+    get:
+      tags:
+      - "web"
+      summary: "vacation rules"
+      operationId: "vacation rules"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/VacationRule"
+  /web/gateway/attendance/api/attendance/period/setting/getAttendancePeriodSettingList:
+    get:
+      tags:
+      - "web"
+      summary: "get attendance period setting"
+      operationId: "get attendance period setting"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AttendancePeriodSettingList"
+  /gateway/kpi/plan/searchByKeyword:
+    post:
+      tags:
+      - "gateway"
+      summary: "kpi plan by keyword"
+      operationId: "kpi plan by keyword"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/KpiPlan"
+  /gateway/kpi/norm/searchByKeyword:
+    post:
+      tags:
+      - "gateway"
+      summary: "kpi norm by keyword"
+      operationId: "kpi norm by keyword"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/KpiNorm"
+  /web/screenResume/queryResumeList.do:
+    post:
+      tags:
+      - "web"
+      summary: "get resume list"
+      operationId: "get resume list"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResumeList"
+components:
+  schemas:
+    Organization:
+      type: "object"
+      properties:
+        capacity:
+          type: "integer"
+          example: 0
+        children:
+          type: "array"
+          items:
+            $ref: "#/components/schemas/Organization"
+        className:
+          type: "string"
+          example: "list-type-company"
+        departmentId:
+          type: "string"
+          example: "0"
+        depth:
+          type: "integer"
+          example: 0
+        hasAuth:
+          type: "boolean"
+          example: true
+        id:
+          type: "string"
+          example: "cb0fdf11-f836-4fca-a325-96973f57208d"
+        isVirtual:
+          type: "boolean"
+          example: false
+        nodeId:
+          type: "string"
+          example: "0"
+        onJobHeadCount:
+          type: "integer"
+          example: 5
+        onJobTotalHeadCount:
+          type: "integer"
+          example: 8
+        parentId:
+          type: "string"
+          nullable: true
+        positionList:
+          type: "array"
+          items:
+            type: "string"
+            nullable: true
+        principalId:
+          type: "string"
+        principalName:
+          type: "string"
+        staffInfoList:
+          type: "array"
+          items:
+            type: "string"
+            nullable: true
+        text:
+          type: "string"
+          example: "杭州艾骊莎信息科技有限公司"
+        totalCapacity:
+          type: "integer"
+          example: 289
+        type:
+          type: "string"
+          example: "COMPANY"
+    CompanyList:
+      type: "object"
+      properties:
+        page:
+          type: "integer"
+          format: "int64"
+        rows:
+          type: "integer"
+          format: "int64"
+        content:
+          type: "array"
+          items:
+            $ref: "#/components/schemas/CompanyListContentItem"
+        totalElements:
+          type: "integer"
+          format: "int64"
+        totalPages:
+          type: "integer"
+          format: "int64"
+    CompanyListContentItem:
+      type: "object"
+      properties:
+        address:
+          type: "string"
+        city:
+          type: "integer"
+          format: "int64"
+        companyId:
+          type: "string"
+        country:
+          type: "string"
+        createdDate:
+          type: "string"
+          format: "date-time"
+        id:
+          type: "string"
+        isDeleted:
+          type: "boolean"
+          default: false
+        province:
+          type: "string"
+        siteName:
+          type: "string"
+        siteType:
+          type: "string"
+    OrganizationList:
+      type: "object"
+      properties:
+        assignedCount:
+          type: "integer"
+          format: "int64"
+        capacity:
+          type: "integer"
+          format: "int64"
+        costCenterCode:
+          type: "string"
+        departmentCode:
+          type: "string"
+        depth:
+          type: "integer"
+          format: "int64"
+        hasAuth:
+          type: "boolean"
+          default: true
+        id:
+          type: "string"
+        isVirtual:
+          type: "boolean"
+          default: true
+        nodeId:
+          type: "string"
+        onJobHeadCount:
+          type: "integer"
+          format: "int64"
+        onJobTotalHeadCount:
+          type: "integer"
+          format: "int64"
+        parentId:
+          type: "string"
+        principalId:
+          type: "string"
+        principalName:
+          type: "string"
+        text:
+          type: "string"
+        totalCapacitry:
+          type: "integer"
+          format: "1nt64"
+        type:
+          type: "string"
+    CategoryList:
+      type: "object"
+      properties:
+        categoryContainGrade:
+          type: "object"
+          nullable: true
+        companyId:
+          type: "string"
+        createdDate:
+          type: "string"
+          format: "date-time"
+        id:
+          type: "string"
+        jobCategoryName:
+          type: "string"
+    PositionGradeList:
+      type: "object"
+      properties:
+        columns:
+          type: "array"
+          items:
+            $ref: "#/components/schemas/ColumnForPositionGradeList"
+        datas:
+          type: "array"
+          items:
+            $ref: "#/components/schemas/DataForPositionGradeList"
+    ColumnForPositionGradeList:
+      type: "object"
+      properties:
+        categoryContainGrade:
+          type: "object"
+          nullable: true
+        companyId:
+          type: "string"
+        createdDate:
+          type: "string"
+          format: "date-time"
+        id:
+          type: "string"
+        jobCategoryName:
+          type: "string"
+    DataForPositionGradeList:
+      type: "object"
+      properties:
+        datas:
+          type: "array"
+          items:
+            $ref: "#/components/schemas/SubDataForPositionGradeList"
+        gradeSalaryEntity:
+          type: "object"
+          properties:
+            coefficientLower:
+              type: "number"
+              format: "float"
+            coefficientUpper:
+              type: "integer"
+              format: "int64"
+            companyId:
+              type: "string"
+            id:
+              type: "string"
+        positionGradeNum:
+          type: "integer"
+          format: "int64"
+    SubDataForPositionGradeList:
+      type: "object"
+      properties:
+        companyId:
+          type: "string"
+        id:
+          type: "string"
+        jobCategoryId:
+          type: "string"
+        jobCategoryName:
+          type: "string"
+        positionGradeName:
+          type: "string"
+        positionGradeNum:
+          type: "integer"
+          format: "int64"
+    JobList:
+      type: "object"
+      properties:
+        content:
+          type: "array"
+          items:
+            $ref: "#/components/schemas/JobListItem"
+        page:
+          type: "integer"
+          format: "int64"
+        rows:
+          type: "integer"
+          format: "int64"
+        totalElements:
+          type: "integer"
+          format: "int64"
+        totalPages:
+          type: "integer"
+          format: "int64"
+    JobListItem:
+      type: "object"
+      properties:
+        companyId:
+          type: "string"
+        description:
+          type: "string"
+        id:
+          type: "string"
+        jobCategoryId:
+          type: "string"
+        jobCategoryName:
+          type: "string"
+        jobTitleName:
+          type: "string"
+        maxPositionGradeId:
+          type: "string"
+        maxPositionGradeName:
+          type: "string"
+        minPositionGradeId:
+          type: "string"
+        minPostionGradeName:
+          type: "string"
+        positionGradeList:
+          type: "array"
+          items:
+            $ref: "#/components/schemas/PositionGradeList"
+    CompanyPosition:
+      type: "object"
+      properties:
+        content:
+          type: "array"
+          items:
+            $ref: "#/components/schemas/CompanyPositionItem"
+        page:
+          type: "integer"
+          format: "int64"
+        rows:
+          type: "integer"
+          format: "int64"
+        totalElements:
+          type: "integer"
+          format: "int64"
+        totalPages:
+          type: "integer"
+          format: "int64"
+    CompanyPositionItem:
+      type: "object"
+      properties:
+        appliedRange:
+          type: "string"
+        capacity:
+          type: "integer"
+          format: "int64"
+        companyId:
+          type: "string"
+        departmentId:
+          type: "integer"
+          format: "int64"
+        departmentName:
+          type: "string"
+        description:
+          type: "string"
+        id:
+          type: "string"
+        isPositionGroup:
+          type: "boolean"
+          default: true
+        jobTitleId:
+          type: "string"
+        jonTitleName:
+          type: "string"
+        parentId:
+          type: "string"
+        positionCode:
+          type: "string"
+        positionGradeId:
+          type: "string"
+        positionGradeName:
+          type: "string"
+        positionName:
+          type: "string"
+        qualifications:
+          type: "object"
+          nullable: true
+    BasicSetting:
+      type: "object"
+      properties:
+        data:
+          type: "array"
+          items:
+            $ref: "#/components/schemas/BasicSettingItem"
+        errorCode:
+          type: "string"
+          nullable: true
+        errorMessage:
+          type: "string"
+          nullable: true
+        errorMessageList:
+          type: "object"
+          nullable: true
+        errorNumber:
+          type: "string"
+          nullable: true
+        noValidateNumber:
+          type: "string"
+        result:
+          type: "boolean"
+          default: true
+        totalNumber:
+          type: "integer"
+          format: "int64"
+    BasicSettingItem:
+      type: "object"
+      properties:
+        DEPARTMENT:
+          type: "boolean"
+          default: false
+        POSITION:
+          type: "boolean"
+          default: false
+    SearchStaff:
+      type: "object"
+      properties:
+        code:
+          type: "object"
+          nullable: true
+        data:
+          type: "object"
+          properties:
+            list:
+              type: "array"
+              items:
+                $ref: "#/components/schemas/StaffListItem"
+        errorCode:
+          type: "string"
+          nullable: true
+        errorMessage:
+          type: "string"
+          nullable: true
+        message:
+          type: "string"
+          nullable: true
+        result:
+          type: "boolean"
+          default: true
+    StaffListItem:
+      type: "object"
+      properties:
+        departmentId:
+          type: "string"
+        departmentName:
+          type: "string"
+        flexAttributes:
+          type: "object"
+          nullable: true
+        fullDepartmentName:
+          type: "string"
+        id:
+          type: "string"
+        idCardType:
+          type: "string"
+        jobTitleId:
+          type: "string"
+          nullable: true
+        jobTitleName:
+          type: "string"
+          nullable: true
+        mobileNo:
+          type: "string"
+        politicalStatus:
+          type: "object"
+          nullable: true
+        positionId:
+          type: "string"
+        positionName:
+          type: "string"
+        staffName:
+          type: "string"
+        staffNo:
+          type: "string"
+          nullable: true
+        staffStatus:
+          type: "string"
+    SearchEducation:
+      type: "object"
+      properties:
+        code:
+          type: "string"
+          nullable: true
+        data:
+          type: "object"
+          properties:
+            content:
+              type: "array"
+              items:
+                $ref: "#/components/schemas/StaffEducationData"
+        errorCode:
+          type: "string"
+          nullable: true
+        errorMessage:
+          type: "string"
+          nullable: true
+        message:
+          type: "string"
+          nullable: true
+        result:
+          type: "boolean"
+          default: true
+    StaffEducationData:
+      type: "object"
+      properties:
+        companyId:
+          type: "string"
+        createdDate:
+          type: "string"
+          format: "date-time"
+        departmentId:
+          type: "string"
+        departmentName:
+          type: "string"
+        diplomaType:
+          type: "string"
+        educationImageId1:
+          type: "string"
+        educationImageId2:
+          type: "string"
+        entryDate:
+          type: "string"
+          format: "date-time"
+        flexAttributes:
+          type: "object"
+          properties:
+            data-id:
+              type: "string"
+        graduateDate:
+          type: "string"
+          format: "date-time"
+        hasGotDegree:
+          type: "boolean"
+          default: false
+        id:
+          type: "string"
+        lastUpdate:
+          type: "object"
+          nullable: true
+        major:
+          type: "string"
+        orderNumber:
+          type: "string"
+        positionName:
+          type: "string"
+        schoolName:
+          type: "string"
+        staffId:
+          type: "string"
+        staffName:
+          type: "string"
+        staffNo:
+          type: "string"
+        staffStatus:
+          type: "string"
+    WorkExperience:
+      type: "object"
+      properties:
+        formFlexAttributes:
+          type: "object"
+          properties:
+            companyName:
+              type: "object"
+              properties:
+                defaultValue:
+                  type: "string"
+                  nullable: true
+                displayName:
+                  type: "string"
+                inMain:
+                  type: "boolean"
+                  default: true
+                isRequired:
+                  type: "boolean"
+                  default: true
+                isValid:
+                  type: "boolean"
+                  default: true
+                maximumValue:
+                  type: "object"
+                  nullable: true
+                metaCode:
+                  type: "string"
+                minimumValue:
+                  type: "object"
+                  nullable: true
+                type:
+                  type: "string"
+                value:
+                  type: "string"
+                valueLength:
+                  type: "integer"
+                  format: "int64"
+            enrollDate:
+              type: "object"
+              properties:
+                defaultValue:
+                  type: "string"
+                  nullable: true
+                displayName:
+                  type: "string"
+                inMain:
+                  type: "boolean"
+                  default: true
+                isRequired:
+                  type: "boolean"
+                  default: true
+                isValid:
+                  type: "boolean"
+                  default: true
+                maximumValue:
+                  type: "object"
+                  nullable: true
+                metaCode:
+                  type: "string"
+                minimumValue:
+                  type: "object"
+                  nullable: true
+                type:
+                  type: "string"
+                value:
+                  type: "string"
+                valueLength:
+                  type: "integer"
+                  format: "int64"
+            id:
+              type: "object"
+              properties:
+                type:
+                  type: "string"
+            jobDescription:
+              type: "object"
+              properties:
+                defaultValue:
+                  type: "string"
+                  nullable: true
+                displayName:
+                  type: "string"
+                inMain:
+                  type: "boolean"
+                  default: true
+                isRequired:
+                  type: "boolean"
+                  default: true
+                isValid:
+                  type: "boolean"
+                  default: true
+                maximumValue:
+                  type: "object"
+                  nullable: true
+                metaCode:
+                  type: "string"
+                minimumValue:
+                  type: "object"
+                  nullable: true
+                type:
+                  type: "string"
+                value:
+                  type: "string"
+                valueLength:
+                  type: "integer"
+                  format: "int64"
+            jobTitle:
+              type: "object"
+              properties:
+                defaultValue:
+                  type: "string"
+                  nullable: true
+                displayName:
+                  type: "string"
+                inMain:
+                  type: "boolean"
+                  default: true
+                isRequired:
+                  type: "boolean"
+                  default: true
+                isValid:
+                  type: "boolean"
+                  default: true
+                maximumValue:
+                  type: "object"
+                  nullable: true
+                metaCode:
+                  type: "string"
+                minimumValue:
+                  type: "object"
+                  nullable: true
+                type:
+                  type: "string"
+                value:
+                  type: "string"
+                valueLength:
+                  type: "integer"
+                  format: "int64"
+            quiteDate:
+              type: "object"
+              properties:
+                defaultValue:
+                  type: "string"
+                  nullable: true
+                displayName:
+                  type: "string"
+                inMain:
+                  type: "boolean"
+                  default: true
+                isRequired:
+                  type: "boolean"
+                  default: true
+                isValid:
+                  type: "boolean"
+                  default: true
+                maximumValue:
+                  type: "object"
+                  nullable: true
+                metaCode:
+                  type: "string"
+                minimumValue:
+                  type: "object"
+                  nullable: true
+                type:
+                  type: "string"
+                value:
+                  type: "string"
+                valueLength:
+                  type: "integer"
+                  format: "int64"
+            staffId:
+              type: "object"
+              properties:
+                type:
+                  type: "string"
+        staffId:
+          type: "string"
+    SearchWorkExperience:
+      type: "object"
+      properties:
+        code:
+          type: "string"
+          nullable: true
+        data:
+          type: "object"
+          properties:
+            content:
+              type: "array"
+              items:
+                $ref: "#/components/schemas/SearchWorkExperienceItem"
+            page:
+              type: "integer"
+              format: "int64"
+            rows:
+              type: "integer"
+              format: "int64"
+            totalElement:
+              type: "integer"
+              format: "int64"
+            totalPages:
+              type: "integer"
+              format: "int64"
+        errorCode:
+          type: "object"
+          nullable: true
+        errorMessage:
+          type: "object"
+          nullable: true
+        message:
+          type: "string"
+          nullable: true
+        result:
+          type: "boolean"
+          default: true
+    SearchWorkExperienceItem:
+      type: "object"
+      properties:
+        companyId:
+          type: "string"
+        companyName:
+          type: "string"
+        createdDate:
+          type: "string"
+          format: "date-time"
+        departmentId:
+          type: "string"
+        departmentName:
+          type: "string"
+        enrollDate:
+          type: "string"
+          format: "date-time"
+        flexAttributes:
+          type: "object"
+          properties:
+            data-id:
+              type: "string"
+        id:
+          type: "string"
+        jobDescription:
+          type: "string"
+        jobTitle:
+          type: "string"
+        lastUpdate:
+          type: "object"
+          nullable: true
+        orderNumber:
+          type: "object"
+          nullable: true
+        positionName:
+          type: "object"
+          nullable: true
+        quitDate:
+          type: "string"
+          format: "date-time"
+        staffId:
+          type: "string"
+        staffName:
+          type: "string"
+        staffNo:
+          type: "string"
+        staffStatus:
+          type: "string"
+    EmployeeCertificate:
+      type: "object"
+      properties:
+        certificateName:
+          type: "string"
+        certificateNumber:
+          type: "string"
+        certificateType:
+          type: "string"
+        certifyingAuthority:
+          type: "string"
+        dateOfDue:
+          type: "string"
+          format: "date"
+        dateOfIssue:
+          type: "string"
+          format: "date"
+        grade:
+          type: "string"
+        major:
+          type: "string"
+        recordDate:
+          type: "string"
+          format: "date"
+        remark:
+          type: "string"
+        reminderDate:
+          type: "string"
+          format: "date"
+        reminderType:
+          type: "string"
+        staffId:
+          type: "string"
+        staffName:
+          type: "string"
+    EmployeeCertificateData:
+      type: "object"
+      properties:
+        content:
+          type: "array"
+          items:
+            $ref: "#/components/schemas/EmployeeCertificateDataItem"
+        page:
+          type: "integer"
+          format: "int64"
+        rows:
+          type: "integer"
+          format: "int64"
+        totalElements:
+          type: "integer"
+          format: "int64"
+        totalPages:
+          type: "integer"
+          format: "int64"
+    EmployeeCertificateDataItem:
+      type: "object"
+      properties:
+        certificateName:
+          type: "string"
+        certificateNumber:
+          type: "string"
+        certificateType:
+          type: "string"
+        certifyingAuthority:
+          type: "string"
+        companyId:
+          type: "string"
+        createDate:
+          type: "string"
+          format: "date"
+        dateOfDue:
+          type: "string"
+          format: "date"
+        dateOfIssue:
+          type: "string"
+          format: "date"
+        grade:
+          type: "string"
+        id:
+          type: "string"
+        major:
+          type: "string"
+        mobileNo:
+          type: "string"
+        recordDate:
+          type: "string"
+          format: "date"
+        remark:
+          type: "string"
+        reminderDate:
+          type: "string"
+        reminderType:
+          type: "string"
+        staffId:
+          type: "string"
+        staffName:
+          type: "string"
+    ContractInfo:
+      type: "object"
+      properties:
+        code:
+          type: "object"
+          nullable: true
+        data:
+          type: "object"
+          properties:
+            list:
+              type: "array"
+              items:
+                $ref: "#/components/schemas/ContractInfoListItem"
+            page:
+              type: "integer"
+              format: "int64"
+            rows:
+              type: "integer"
+              format: "int64"
+            totalElements:
+              type: "integer"
+              format: "int64"
+            totalPages:
+              type: "integer"
+              format: "int64"
+        errorCode:
+          type: "object"
+          nullable: true
+        errorMessage:
+          type: "object"
+          nullable: true
+        message:
+          type: "object"
+          nullable: true
+        result:
+          type: "boolean"
+          default: true
+    ContractInfoListItem:
+      type: "object"
+      properties:
+        applicantName:
+          type: "string"
+          nullable: true
+        applicationId:
+          type: "string"
+          nullable: true
+        applicationStatus:
+          type: "string"
+        applicationType:
+          type: "string"
+          nullable: true
+        applyTime:
+          type: "string"
+          nullable: true
+        assignees:
+          type: "string"
+          nullable: true
+        calcContractTerm:
+          type: "integer"
+          format: "int64"
+        companyId:
+          type: "string"
+        contactTerm:
+          type: "string"
+        contractBeginDate:
+          type: "string"
+        contractEndDate:
+          type: "string"
+        contractHistoryRecordList:
+          type: "object"
+          nullable: true
+        contractNo:
+          type: "string"
+          nullable: true
+        contractProperty:
+          type: "string"
+        contractSignDate:
+          type: "string"
+          nullable: true
+        contractStatus:
+          type: "string"
+        contractTermDate:
+          type: "string"
+          nullable: true
+        contractTermType:
+          type: "string"
+        contractType:
+          type: "string"
+        corporationId:
+          type: "string"
+        corporationName:
+          type: "string"
+        createdDate:
+          type: "string"
+          nullable: true
+        curContractBeginDate:
+          type: "string"
+          nullable: true
+        curContractEndDate:
+          type: "string"
+          nullable: true
+        departmentId:
+          type: "string"
+        departmentName:
+          type: "string"
+        digitalContractNum:
+          type: "string"
+          nullable: true
+        endTime:
+          type: "string"
+          nullable: true
+        enrollDate:
+          type: "string"
+          nullable: true
+        historyContract:
+          type: "boolean"
+          default: false
+        id:
+          type: "string"
+        idCardId:
+          type: "string"
+        isDeleted:
+          type: "boolean"
+        mobileNo:
+          type: "string"
+        positionId:
+          type: "string"
+        positionName:
+          type: "string"
+        processCode:
+          type: "object"
+          nullable: true
+        processId:
+          type: "string"
+          nullable: true
+        remark:
+          type: "string"
+          nullable: true
+        renewContractBeginDate:
+          type: "string"
+          nullable: true
+        renewContractEndDate:
+          type: "string"
+          nullable: true
+        signedNum:
+          type: "integer"
+          format: "int64"
+        staffId:
+          type: "string"
+        staffName:
+          type: "string"
+        staffNo:
+          type: "string"
+          nullable: true
+        staffStatus:
+          type: "string"
+        warningStatus:
+          type: "integer"
+          format: "int64"
+    SelectorStaff:
+      type: "object"
+      properties:
+        content:
+          type: "array"
+          items:
+            $ref: "#/components/schemas/DataForSelectorStaff"
+        page:
+          type: "integer"
+          format: "int64"
+          example: 0
+        rows:
+          type: "integer"
+          format: "int64"
+          example: 0
+        totalElements:
+          type: "integer"
+          format: "int64"
+          example: 0
+        totalPages:
+          type: "integer"
+          format: "int64"
+          example: 0
+    DataForSelectorStaff:
+      type: "object"
+      properties:
+        departmentId:
+          type: "string"
+          example: "0"
+        departmentName:
+          type: "string"
+          example: "杭州艾骊莎信息科技有限公司"
+        enrollInDate:
+          type: "string"
+          format: "date"
+          example: "2019-03-01"
+        idCardNo:
+          type: "string"
+          example: "430124198709192963"
+        idCardType:
+          type: "string"
+          example: "IDENTITY_CARD"
+        mobileNo:
+          type: "string"
+          example: "18073111159"
+        positionId:
+          type: "string"
+          example: "1c934f3a-e65f-44fe-899a-18a580260e21"
+        positionName:
+          type: "string"
+          example: "web讲师"
+        staffId:
+          type: "string"
+          example: "90fa87af-0b54-46a9-baf7-c6778823d113"
+        staffName:
+          type: "string"
+          example: "刘杰音"
+        staffStatus:
+          type: "string"
+          example: "IN_SERVICE"
+    StaffAgreement:
+      type: "object"
+      properties:
+        code:
+          type: "object"
+          nullable: true
+        data:
+          type: "object"
+          properties:
+            list:
+              type: "array"
+              items:
+                $ref: "#/components/schemas/StaffAgreementListItem"
+            page:
+              type: "integer"
+              format: "int64"
+              example: 1
+            rows:
+              type: "integer"
+              format: "int64"
+              example: 10
+            totalElements:
+              type: "integer"
+              format: "int64"
+              example: 1
+        errorCode:
+          type: "object"
+          nullable: true
+        errorMessage:
+          type: "object"
+          nullable: true
+        result:
+          type: "boolean"
+          example: true
+          default: true
+    StaffAgreementListItem:
+      type: "object"
+      properties:
+        agreementCompanyId:
+          type: "string"
+          example: "d2822608-d5f4-47dd-9776-9ae2f24c9993"
+        agreementCompanyName:
+          type: "string"
+          example: "杭州艾骊莎信息科技有限公司"
+        beginDate:
+          type: "string"
+          example: "1600617600000"
+        certificateNum:
+          type: "string"
+          example: "430124198709192963"
+        closeDate:
+          type: "string"
+          format: "date"
+          nullable: true
+        companyId:
+          type: "string"
+          example: "36dbfa02cbe54b11a5543d46b5112168"
+        createdDate:
+          type: "string"
+          example: "1600659549000"
+        departmentId:
+          type: "integer"
+          format: "int64"
+          example: 0
+        departmentName:
+          type: "string"
+          example: "杭州艾骊莎信息科技有限公司"
+        endDate:
+          type: "string"
+          example: "1600704000000"
+        id:
+          type: "string"
+          example: "315885de-bfe9-4750-95e8-1446dd6c3fb2"
+        isDeleted:
+          type: "integer"
+          format: "int64"
+          example: 0
+        number:
+          type: "string"
+          example: "1990"
+        remark:
+          type: "string"
+          example: "description for new agreement."
+        staffId:
+          type: "string"
+          example: "90fa87af-0b54-46a9-baf7-c6778823d113"
+        staffName:
+          type: "string"
+          example: "刘杰音"
+        staffNo:
+          type: "integer"
+          format: "int64"
+          nullable: true
+        staffStatus:
+          type: "string"
+          example: "IN_SERVICE"
+        status:
+          type: "string"
+          example: "SIGNED"
+        type:
+          type: "string"
+          example: "CONFIDENTIALITY"
+        updateTime:
+          type: "string"
+          format: "date-time"
+          nullable: true
+    AddStaffAgreement:
+      type: "object"
+      properties:
+        agreementCompanyId:
+          type: "string"
+          example: "d2822608-d5f4-47dd-9776-9ae2f24c9993"
+        agreementCompanyName:
+          type: "string"
+          example: "杭州艾骊莎信息科技有限公司"
+        beginDate:
+          type: "string"
+          format: "date"
+          example: "2020-09-21"
+        endDate:
+          type: "string"
+          format: "date"
+          example: "2020-09-22"
+        number:
+          type: "string"
+          example: "1990"
+        remark:
+          type: "string"
+          example: "description for new agreement."
+        staffId:
+          type: "string"
+          example: "90fa87af-0b54-46a9-baf7-c6778823d113"
+        staffName:
+          type: "string"
+          example: "刘杰音（18073111159）"
+        type:
+          type: "string"
+          example: "CONFIDENTIALITY"
+    SearchEntryForm:
+      type: "object"
+      properties:
+        code:
+          type: "object"
+          nullable: true
+        data:
+          type: "object"
+          properties:
+            list:
+              type: "array"
+              items:
+                $ref: "#/components/schemas/SearchEntryFormListItem"
+            page:
+              type: "integer"
+              format: "int64"
+              example: 1
+            pageSize:
+              type: "integer"
+              format: "int64"
+              example: 100
+            totalCount:
+              type: "integer"
+              format: "int64"
+              example: 1
+        errorCode:
+          type: "string"
+          nullable: true
+        errorMessage:
+          type: "string"
+          nullable: true
+        message:
+          type: "string"
+          nullable: true
+        result:
+          type: "boolean"
+          example: true
+          default: true
+    SearchEntryFormListItem:
+      type: "object"
+      properties:
+        abandonDate:
+          type: "string"
+          format: "date"
+          nullable: true
+        abandonEntry:
+          type: "integer"
+          format: "int64"
+          example: 0
+        abandonReason:
+          type: "string"
+          nullable: true
+        blacklist:
+          type: "integer"
+          format: "int64"
+          example: 0
+        confirmEntryDate:
+          type: "string"
+          example: "1397577600000"
+        departmentName:
+          type: "string"
+          example: "杭州艾骊莎信息科技有限公司"
+        email:
+          type: "string"
+          nullable: true
+        entryApplicationStatus:
+          type: "string"
+          example: "ARCHIVE"
+        entryStaffInfo:
+          type: "integer"
+          format: "int64"
+          example: 1
+        entryStatus:
+          type: "integer"
+          format: "int64"
+          example: 2
+        id:
+          type: "string"
+          example: "1594388f-f67a-488c-ab0e-98836d3c7bc8"
+        idCardNo:
+          type: "string"
+          example: "430602196504052510"
+        illustration:
+          type: "object"
+          nullable: true
+        mobile:
+          type: "string"
+          example: "13707313390"
+        positionName:
+          type: "string"
+          example: "教务部"
+        processId:
+          type: "string"
+          nullable: true
+        realityEntryDate:
+          type: "string"
+          example: "1595952000000"
+        registrationStatus:
+          type: "string"
+          example: "PASSED"
+        source:
+          type: "integer"
+          format: "int64"
+          example: 5
+        staffName:
+          type: "string"
+          example: "王剑峰"
+    AddEntryForm:
+      type: "object"
+      properties:
+        contractType:
+          type: "string"
+          example: "OTHER_CONTRACT"
+        departmentId:
+          type: "string"
+          example: "0"
+        email:
+          type: "string"
+          example: "rus0228@outlook.com"
+        expectEntryDate:
+          type: "string"
+          format: "date"
+          example: "2020-06-23"
+        idCardNo:
+          type: "string"
+          example: "12123"
+        idCardType:
+          type: "string"
+          example: "CHINA_PASSPORT"
+        mobile:
+          type: "string"
+          example: "18240331746"
+        positionId:
+          type: "string"
+          example: "1c934f3a-e65f-44fe-899a-18a580260e21"
+        sex:
+          type: "string"
+          example: "MALE"
+        staffName:
+          type: "string"
+          example: "ye liu"
+        staffType:
+          type: "string"
+          example: "FULLTIME"
+    StaffMetaData:
+      type: "object"
+      properties:
+        childrenFunctionAuth:
+          type: "object"
+          example: {}
+        companyId:
+          type: "string"
+          example: "36dbfa02cbe54b11a5543d46b5112168"
+        description:
+          type: "string"
+          example: "基础信息"
+        displayName:
+          type: "string"
+          example: "基础信息"
+        entityName:
+          type: "string"
+          example: "cn.irenshi.meta.dto.roster.mysql.StaffInfo"
+        fieldGroupList:
+          type: "array"
+          items:
+            $ref: "#/components/schemas/StaffFieldGroupListItem"
+        functionCode:
+          type: "string"
+          example: "tab_staff_info"
+        hasAuthority:
+          type: "boolean"
+          example: false
+        id:
+          type: "string"
+          example: "tab_staff_info"
+        isApprove:
+          type: "boolean"
+          example: false
+        isHide:
+          type: "boolean"
+          example: false
+        isReadOnly:
+          type: "boolean"
+          example: false
+        isSubSet:
+          type: "boolean"
+          example: false
+        isUpdate:
+          type: "boolean"
+          example: false
+        isValid:
+          type: "boolean"
+          example: true
+        metaCode:
+          type: "string"
+          example: "tab_staff_info"
+        metaDataType:
+          type: "string"
+          example: "ENTITY"
+        sortNo:
+          type: "integer"
+          format: "int64"
+          example: 0
+        tableName:
+          type: "string"
+          example: "tab_staff_info_flex"
+    StaffFieldGroupListItem:
+      type: "object"
+      properties:
+        description:
+          type: "string"
+          example: "默认分组"
+        displayName:
+          type: "string"
+          example: "默认分组"
+        fieldList:
+          type: "array"
+          items:
+            $ref: "#/components/schemas/StaffFieldListItem"
+        id:
+          type: "string"
+          example: "22ad9aa3-7c87-4195-9db6-227f269cbd3a"
+        metaCode:
+          type: "string"
+          example: "tab_staff_info.default"
+        metaDataCode:
+          type: "string"
+          example: "tab_staff_info"
+        sortNo:
+          type: "string"
+          example: "-1"
+    StaffFieldListItem:
+      type: "object"
+      properties:
+        columnName:
+          type: "string"
+          example: "enrollInDate"
+        displayName:
+          type: "string"
+          example: "入职日期"
+        exportSelected:
+          type: "boolean"
+          example: false
+        fieldGroupId:
+          type: "string"
+          example: "tab_staff_info"
+        fieldName:
+          type: "string"
+          example: "enrollInDate"
+        fieldType:
+          type: "string"
+          example: "DATE"
+        flexTableSelectField:
+          type: "boolean"
+          example: false
+        functionCode:
+          type: "string"
+          example: "tab_staff_info"
+        id:
+          type: "string"
+          example: "tab_staff_info.enrollInDate"
+        isApprove:
+          type: "boolean"
+          example: false
+        isCompanyField:
+          type: "boolean"
+          example: true
+        isFixed:
+          type: "boolean"
+          example: false
+        isHide:
+          type: "boolean"
+          example: false
+        isMain:
+          type: "boolean"
+          example: true
+        isNameable:
+          type: "boolean"
+          example: false
+        isReadOnly:
+          type: "boolean"
+          example: false
+        isRequired:
+          type: "boolean"
+          example: true
+        isSystem:
+          type: "boolean"
+          example: true
+        isUpdate:
+          type: "boolean"
+          example: false
+        isValid:
+          type: "boolean"
+          example: true
+        metaCode:
+          type: "string"
+          example: "tab_staff_info.enrollInDate"
+        metaDataCode:
+          type: "string"
+          example: "tab_staff_info"
+        metaDataId:
+          type: "string"
+          example: "22ad9aa3-7c87-4195-9db6-227f269cbd3a"
+        notMainOrDimension:
+          type: "boolean"
+          example: false
+        openValid:
+          type: "boolean"
+          example: false
+        selected:
+          type: "boolean"
+          example: false
+    CustomMetaDataListItem:
+      type: "object"
+      properties:
+        childrenFunctionAuth:
+          type: "object"
+          example: {}
+        companyId:
+          type: "string"
+          example: "system-default-company-id"
+        description:
+          type: "string"
+          example: "基础信息"
+        displayName:
+          type: "string"
+          example: "基础信息"
+        entityName:
+          type: "string"
+          example: "cn.irenshi.meta.dto.roster.mysql.StaffInfo"
+        functionCode:
+          type: "string"
+          example: "tab_staff_info"
+        hasAuthority:
+          type: "boolean"
+          example: false
+        id:
+          type: "string"
+          example: "tab_staff_info"
+        isApprove:
+          type: "boolean"
+          example: false
+        isHide:
+          type: "boolean"
+          example: false
+        isReadOnly:
+          type: "boolean"
+          example: false
+        isSubSet:
+          type: "boolean"
+          example: false
+        isUpdate:
+          type: "boolean"
+          example: false
+        isValid:
+          type: "boolean"
+          example: true
+        metaCode:
+          type: "string"
+          example: "tab_staff_info"
+        metaDataType:
+          type: "string"
+          example: "ENTITY"
+        sortNo:
+          type: "integer"
+          example: 0
+        tableName:
+          type: "string"
+          example: "tab_staff_info_flex"
+    BenefitData:
+      type: "object"
+      properties:
+        code:
+          type: "string"
+          example: "0"
+        data:
+          type: "object"
+          properties:
+            content:
+              type: "array"
+              items:
+                $ref: "#/components/schemas/BenefitContentDataItem"
+            end:
+              type: "boolean"
+              example: false
+            totalElements:
+              type: "integer"
+              example: 1
+            totalPages:
+              type: "integer"
+              example: 1
+        errorResult:
+          type: "boolean"
+          example: false
+        message:
+          type: "string"
+          nullable: true
+        showType:
+          type: "string"
+          example: "0"
+        url:
+          type: "string"
+          nullable: true
+    BenefitContentDataItem:
+      type: "object"
+      properties:
+        category:
+          type: "object"
+          properties:
+            id:
+              type: "string"
+              example: "SI"
+            title:
+              type: "string"
+              example: "社保"
+        code:
+          type: "string"
+          example: "SI_LCT_TYPE_0007"
+        division:
+          type: "object"
+          properties:
+            children:
+              type: "array"
+              items:
+                nullable: true
+            code:
+              type: "string"
+              nullable: true
+            country:
+              type: "string"
+              nullable: true
+            createdAt:
+              type: "string"
+              format: "date"
+              nullable: true
+            effectiveAt:
+              type: "string"
+              format: "date"
+              nullable: true
+            engName:
+              type: "string"
+              nullable: true
+            fullInitial:
+              type: "string"
+              nullable: true
+            hot:
+              type: "boolean"
+              example: false
+            id:
+              type: "string"
+              example: "2"
+            indexno:
+              type: "integer"
+              nullable: true
+            initial:
+              type: "string"
+              nullable: true
+            invalidAt:
+              type: "string"
+              format: "date"
+              nullable: true
+            name:
+              type: "string"
+              example: "未设置"
+            parent:
+              type: "object"
+              nullable: true
+            pinyin:
+              type: "string"
+              nullable: true
+            shortName:
+              type: "string"
+              nullable: true
+            updatedAt:
+              type: "string"
+              format: "date"
+              nullable: true
+        enabled:
+          type: "boolean"
+          example: true
+        id:
+          type: "string"
+          example: "82"
+        mode:
+          type: "object"
+          properties:
+            code:
+              type: "string"
+              example: "0000"
+            id:
+              type: "string"
+              example: "27"
+            name:
+              type: "string"
+              example: "默认"
+        remark:
+          type: "string"
+          example: "remark"
+        templates:
+          type: "array"
+          items:
+            $ref: "#/components/schemas/BenefitContentTemplateItem"
+    BenefitContentTemplateItem:
+      type: "object"
+      properties:
+        code:
+          type: "string"
+          example: "0023"
+        configs:
+          type: "array"
+          items:
+            $ref: "#/components/schemas/BenefitContentTemplateItemConfigItem"
+        id:
+          type: "string"
+          example: "1"
+        type:
+          type: "object"
+          properties:
+            category:
+              type: "object"
+              properties:
+                id:
+                  type: "string"
+                  example: "SI"
+                title:
+                  type: "string"
+                  example: "社保"
+            code:
+              type: "string"
+              example: "SI_TYPE_0001"
+            companyCustom:
+              type: "boolean"
+              example: false
+            effectiveAt:
+              type: "string"
+              example: "2000-01"
+            enabled:
+              type: "boolean"
+              example: true
+            id:
+              type: "boolean"
+              example: false
+            invalidAt:
+              type: "boolean"
+              nullable: true
+            name:
+              type: "string"
+              example: "Pension insurance"
+    BenefitContentTemplateItemConfigItem:
+      type: "object"
+      properties:
+        companyConfig:
+          type: "object"
+          properties:
+            amount:
+              type: "integer"
+              example: 0
+            baseMax:
+              type: "integer"
+              example: 2311800
+            baseMin:
+              type: "integer"
+              example: 308200
+            companyAmount:
+              type: "integer"
+              example: 0
+            companyBaseMax:
+              type: "integer"
+              example: 2311800
+            companyBaseMin:
+              type: "integer"
+              example: 308200
+            companyRatio:
+              type: "integer"
+              example: 1900
+            companyRoundBit:
+              type: "integer"
+              example: 2
+            companyRoundType:
+              type: "object"
+              properties:
+                id:
+                  type: "string"
+                  example: "ROUND"
+                title:
+                  type: "string"
+                  example: "四舍五入"
+            ratio:
+              type: "integer"
+              example: 1990
+            roundBit:
+              type: "integer"
+              example: 2
+            roundType:
+              type: "object"
+              properties:
+                id:
+                  type: "string"
+                  example: "ROUND"
+                title:
+                  type: "string"
+                  example: "四舍五入"
+        effectiveOn:
+          type: "string"
+          format: "month"
+          example: "2017-07"
+        enabled:
+          type: "boolean"
+          nullable: true
+        freeTaxAmount:
+          type: "integer"
+          example: 0
+        freeTaxRatio:
+          type: "integer"
+          example: 0
+        id:
+          type: "string"
+          example: "27"
+        includeAdjustableItem:
+          type: "boolean"
+          example: true
+        invalidOn:
+          type: "string"
+          format: "month"
+          example: "2018-07"
+        openFreeTax:
+          type: "boolean"
+          example: false
+        personConfig:
+          type: "object"
+          properties:
+            amount:
+              type: "integer"
+              example: 0
+            baseMax:
+              type: "integer"
+              example: 2311800
+            baseMin:
+              type: "integer"
+              example: 308200
+            personAmount:
+              type: "integer"
+              example: 0
+            personBaseMax:
+              type: "integer"
+              example: 2311800
+            personBaseMin:
+              type: "integer"
+              example: 308200
+            personRatio:
+              type: "integer"
+              example: 800
+            personRoundBit:
+              type: "integer"
+              example: 2
+            personRoundType:
+              type: "object"
+              properties:
+                id:
+                  type: "string"
+                  example: "ROUND"
+                title:
+                  type: "string"
+                  example: "四舍五入"
+            ratio:
+              type: "integer"
+              example: 800
+            roundBit:
+              type: "integer"
+              example: 2
+            roundType:
+              type: "object"
+              properties:
+                id:
+                  type: "string"
+                  example: "ROUND"
+                title:
+                  type: "string"
+                  example: "四舍五入"
+        remedialConfig:
+          type: "object"
+          nullable: true
+    CompanyBenefitSaveResponse:
+      type: "object"
+      properties:
+        code:
+          type: "string"
+          example: "0"
+        data:
+          type: "string"
+          example: "360517025220526100"
+        errorResult:
+          type: "boolean"
+          example: false
+        message:
+          type: "string"
+          nullable: true
+        showType:
+          type: "boolean"
+          example: false
+        url:
+          type: "string"
+          nullable: true
+    CompanyBenefitSaveData:
+      type: "object"
+      properties:
+        companyConfigs:
+          type: "object"
+          nullable: true
+        group:
+          type: "object"
+          properties:
+            category:
+              type: "string"
+              example: "SI"
+            id:
+              type: "string"
+              example: "1187"
+        name:
+          type: "string"
+          example: "赣州市-社保"
+        strategy:
+          type: "string"
+          example: "CURRENT"
+    SavedCompanyBenefitData:
+      type: "object"
+      properties:
+        code:
+          type: "string"
+          example: "0"
+        data:
+          type: "object"
+          properties:
+            page:
+              type: "object"
+              properties:
+                number:
+                  type: "integer"
+                  example: 0
+                size:
+                  type: "integer"
+                  example: 50
+                totalElements:
+                  type: "integer"
+                  example: 7
+                totalPages:
+                  type: "integer"
+                  example: 1
+            _embedded:
+              type: "object"
+              properties:
+                companyBenefits:
+                  type: "array"
+                  items:
+                    $ref: "#/components/schemas/CompanyBenefit"
+            links:
+              type: "object"
+              properties:
+                self:
+                  type: "object"
+                  properties:
+                    href:
+                      type: "string"
+                      example: "http://www.hrms2020.com/gateway/insurance/api/companyBenefits/search?companyId=36dbfa02cbe54b11a5543d46b5112168&pageNo=1&companyName=%E6%9D%AD%E5%B7%9E%E8%89%BE%E9%AA%8A%E8%8E%8E%E4%BF%A1%E6%81%AF%E7%A7%91%E6%8A%80%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8&bound=true&pageSize=50&_category=SI&projection=list&mobileNo=13567190293&sessionId=ODM4MTNkZGUtNDcxYy00ZWZkLWJlN2UtNzBkNTgwZTY5ZWNm&userName=13567190293&userId=96afabbd7430488c90e4f3f0cd8aff66&staffId=5a43bd72-6b47-4cd6-b56d-4ed401dc0dca&page=0&size=50"
+        errorResult:
+          type: "boolean"
+          example: false
+        message:
+          type: "string"
+          nullable: true
+        showType:
+          type: "boolean"
+          example: false
+        url:
+          type: "string"
+          nullable: true
+    CompanyBenefit:
+      type: "object"
+      properties:
+        accessPrivilege:
+          type: "string"
+          example: "OWNER"
+        enabled:
+          type: "boolean"
+          example: true
+        groupDivisionId:
+          type: "string"
+          example: "1379"
+        groupModeName:
+          type: "string"
+          example: "Urban "
+        groupTemplatesTypeNames:
+          type: "string"
+          example: "Pension insurance Medical insurance Injury insurance Major illness\
+            \ medical insurance Unemployment insurance Maternity insurance "
+        id:
+          type: "string"
+          example: "360466831548350464"
+        name:
+          type: "string"
+          example: "九江市-社保"
+        resourcePublicity:
+          type: "string"
+          example: "PERSONAL"
+        staffCount:
+          type: "integer"
+          example: 0
+        _links:
+          type: "object"
+          properties:
+            companyConfigs:
+              type: "object"
+              properties:
+                href:
+                  type: "string"
+                  example: "http://www.hrms2020.com/gateway/insurance/api/rest/companyBenefits/360466831548350464/companyConfigs"
+            self:
+              type: "object"
+              properties:
+                href:
+                  type: "string"
+                  example: "http://www.ihr360.com/gateway/insurance/api/rest/companyBenefits/360466831548350464"
+    StaffBenefit:
+      type: "object"
+      properties:
+        code:
+          type: "string"
+          example: "0"
+        data:
+          type: "object"
+          properties:
+            content:
+              type: "array"
+              items:
+                $ref: "#/components/schemas/StaffBenefitDataContentItem"
+            end:
+              type: "boolean"
+              example: false
+            totalElements:
+              type: "integer"
+              example: 8
+            totalPages:
+              type: "integer"
+              example: 1
+        errorResult:
+          type: "boolean"
+          example: false
+        message:
+          type: "string"
+          nullable: true
+        showType:
+          type: "string"
+          example: "0"
+        url:
+          type: "string"
+          nullable: true
+    StaffBenefitDataContentItem:
+      type: "object"
+      properties:
+        divisionId:
+          type: "string"
+          nullable: true
+        hfAccountNumber:
+          type: "string"
+          nullable: true
+        houseFund:
+          type: "string"
+          nullable: true
+        id:
+          type: "string"
+          example: "352717327134883840"
+        otherBenefit:
+          type: "object"
+        siAccountNumber:
+          type: "string"
+        siCompanyBenefitId:
+          type: "string"
+          nullable: true
+        siCompanyBenefitName:
+          type: "string"
+          nullable: true
+        socialInsurance:
+          type: "object"
+          properties:
+            accountNumber:
+              type: "string"
+              nullable: true
+            actualPayer:
+              type: "object"
+              properties:
+                id:
+                  type: "string"
+                  example: "PERSON"
+                title:
+                  type: "string"
+                  example: "个人"
+            base:
+              type: "integer"
+              example: 330000
+            bases:
+              type: "object"
+              properties:
+                SI_PB:
+                  type: "integer"
+                  example: 3300
+            calculatable:
+              type: "boolean"
+              example: true
+            companyBenefitId:
+              type: "string"
+              example: "329482487287775232"
+            companyBenefitName:
+              type: "string"
+              example: "北京市-社保"
+            divisionId:
+              type: "integer"
+              example: 2
+            endOn:
+              type: "string"
+              format: "date"
+              nullable: true
+            originalCompanyBenefitId:
+              type: "string"
+              example: "329482487287775232"
+            payDepartmentId:
+              type: "string"
+              example: "d2822608-d5f4-47dd-9776-9ae2f24c9993"
+            startOn:
+              type: "string"
+              format: "date"
+            supplementaryHfAccountNumber:
+              type: "string"
+              nullable: true
+            vendorId:
+              type: "string"
+              nullable: true
+        staff:
+          type: "object"
+          properties:
+            contractType:
+              type: "string"
+              example: "LABOR_CONTRACT"
+            corporationId:
+              type: "string"
+              nullable: true
+            country:
+              type: "string"
+              nullable: true
+            departmentId:
+              type: "string"
+              example: "0"
+            departmentName:
+              type: "string"
+              example: "杭州艾骊莎信息科技有限公司"
+            enrollInDate:
+              type: "string"
+              example: "2018-07-01T16:00:00.000+0000"
+            id:
+              type: "string"
+              example: "044caed7-924e-4275-831f-c8fa03b13406"
+            idCardNo:
+              type: "string"
+              example: "19820512"
+            idCardType:
+              type: "string"
+              example: "OTHER"
+            lastWorkDay:
+              type: "string"
+              nullable: true
+            leaveDate:
+              type: "string"
+              nullable: true
+            legalName:
+              type: "string"
+              nullable: true
+            mobileNo:
+              type: "string"
+              example: "13707313549"
+            positionId:
+              type: "string"
+              example: "a789e212-16e3-4a26-bda6-ebf039d7e0fe"
+            positionLevelName:
+              type: "string"
+              nullable: true
+            positionName:
+              type: "string"
+              example: "校长"
+            positiveDate:
+              type: "string"
+              format: "date"
+              nullable: true
+            sequence:
+              type: "integer"
+              example: 19
+            sex:
+              type: "string"
+              nullable: true
+            staffName:
+              type: "string"
+              example: "颜亮"
+            staffNo:
+              type: "string"
+              nullable: true
+            staffStatus:
+              type: "string"
+              example: "IN_SERVICE"
+            staffType:
+              type: "string"
+              example: "FULLTIME"
+        staffId:
+          type: "string"
+          nullable: true
+        staffImageId:
+          type: "string"
+          nullable: true
+        staffType:
+          type: "string"
+          nullable: true
+        supplementaryHfAccountNumber:
+          type: "string"
+          nullable: true
+    SiMemberPlan:
+      type: "object"
+      properties:
+        insuranceType:
+          type: "string"
+          example: "increase"
+        month:
+          type: "string"
+          example: "7"
+        page:
+          type: "integer"
+          example: 0
+        siType:
+          type: "boolean"
+          example: true
+        size:
+          type: "integer"
+          example: 10
+        specification:
+          type: "object"
+          properties:
+            predications:
+              type: "object"
+              example: {}
+        year:
+          type: "integer"
+          example: 2020
+    SiMemberPlanList:
+      type: "object"
+      properties:
+        code:
+          type: "string"
+          example: "0"
+        data:
+          type: "object"
+          properties:
+            content:
+              type: "array"
+              items:
+                $ref: "#/components/schemas/SiMemberPlanListContentItem"
+            end:
+              type: "boolean"
+              example: false
+            totalElements:
+              type: "integer"
+              example: 2
+            totalPages:
+              type: "integer"
+              example: 1
+        errorResult:
+          type: "boolean"
+          example: false
+        message:
+          type: "string"
+          nullable: true
+        showType:
+          type: "string"
+          example: "0"
+        url:
+          type: "string"
+          nullable: true
+    SiMemberPlanListContentItem:
+      type: "object"
+      properties:
+        departmentId:
+          type: "string"
+          example: "0"
+        departmentName:
+          type: "string"
+          example: "杭州艾骊莎信息科技有限公司"
+        hfAccountNumber:
+          type: "string"
+          nullable: true
+        hfCompanyBenefit:
+          type: "object"
+        hfEndOn:
+          type: "string"
+          format: "date"
+          nullable: true
+        hfName:
+          type: "string"
+          nullable: true
+        hfPayDepartmentName:
+          type: "string"
+        hfStartOn:
+          type: "string"
+          format: "date"
+          nullable: true
+        houseFund:
+          type: "string"
+        idCardNo:
+          type: "string"
+          example: "19820512"
+        inLedger:
+          type: "boolean"
+          example: false
+        insuranceType:
+          type: "string"
+          example: "增员"
+        isLedger:
+          type: "string"
+          example: "否"
+        month:
+          type: "string"
+        siAccountNumber:
+          type: "string"
+        siCompanyBenefit:
+          type: "object"
+          properties:
+            id:
+              type: "string"
+              example: "329482487287775232"
+            name:
+              type: "string"
+              example: "北京市-社保"
+            payDepartmentId:
+              type: "string"
+              example: "d2822608-d5f4-47dd-9776-9ae2f24c9993"
+            payDepartmentName:
+              type: "string"
+              example: "杭州艾骊莎信息科技有限公司"
+        siEndOn:
+          type: "string"
+        siName:
+          type: "string"
+          example: "北京市-社保"
+        siPayDepartmentName:
+          type: "string"
+          example: "杭州艾骊莎信息科技有限公司"
+        siStartOn:
+          type: "string"
+          format: "month"
+          example: "2020-07"
+        socialInsurance:
+          type: "object"
+          properties:
+            actualPayer:
+              type: "object"
+              properties:
+                id:
+                  type: "string"
+                  example: "PERSON"
+                title:
+                  type: "string"
+                  example: "个人"
+            base:
+              type: "integer"
+              example: 330000
+            calculatable:
+              type: "boolean"
+              example: true
+            divisionId:
+              type: "string"
+              example: "2"
+            endOn:
+              type: "string"
+              format: "date"
+            startOn:
+              type: "string"
+              format: "month"
+              example: "2020-07"
+        staffId:
+          type: "string"
+          example: "044caed7-924e-4275-831f-c8fa03b13406"
+        staffName:
+          type: "string"
+          example: "颜亮"
+        userId:
+          type: "string"
+        year:
+          type: "string"
+    CompanySalaryFieldMetas:
+      type: "object"
+      properties:
+        code:
+          type: "string"
+          example: "0"
+        data:
+          type: "object"
+          properties:
+            content:
+              type: "array"
+              items:
+                $ref: "#/components/schemas/CompanySalaryFieldMetasContentItem"
+            total:
+              type: "integer"
+              example: 419
+        errorResult:
+          type: "boolean"
+          example: false
+        message:
+          type: "string"
+          nullable: true
+        showType:
+          type: "boolean"
+          example: false
+        url:
+          type: "string"
+          nullable: true
+    CompanySalaryFieldMetasContentItem:
+      type: "object"
+      properties:
+        categoryCode:
+          type: "string"
+          example: "CUSTOM"
+        categoryName:
+          type: "string"
+          example: "其他项"
+        companyCostNumOp:
+          type: "string"
+          nullable: true
+        currentAlpsFieldName:
+          type: "string"
+          example: "工作电话"
+        customCost:
+          type: "boolean"
+          example: false
+        exprItems:
+          type: "string"
+          nullable: true
+        fieldCode:
+          type: "string"
+          example: "workPhone"
+        flexField:
+          type: "boolean"
+          example: true
+        forcedTouse:
+          type: "boolean"
+          example: false
+        formula:
+          type: "string"
+          example: "=STAFF_ROSTER$workPhone"
+        formulaFrom:
+          type: "string"
+          example: "SYS"
+        id:
+          type: "string"
+          example: "3433810"
+        meta:
+          type: "object"
+          nullable: true
+        metaId:
+          type: "string"
+          example: "3433114"
+        modifiedName:
+          type: "boolean"
+          example: false
+        name:
+          type: "string"
+          example: "工作电话"
+        oldExprItems:
+          type: "string"
+          nullable: true
+        oldFormula:
+          type: "string"
+          example: "=STAFF_ROSTER$workPhone"
+        oldSource:
+          type: "object"
+          properties:
+            id:
+              type: "string"
+              example: "FUNCTION"
+            title:
+              type: "string"
+              example: "公式"
+        originSource:
+          type: "object"
+        pattern:
+          type: "string"
+          example: "0"
+        remark:
+          type: "string"
+          nullable: true
+        roundingMode:
+          type: "object"
+          properties:
+            id:
+              type: "string"
+              example: "PRIMITIVE"
+            title:
+              type: "string"
+              example: "原始数据"
+        salaryFieldValueType:
+          type: "object"
+          properties:
+            id:
+              type: "string"
+              example: "TEXT"
+            title:
+              type: "string"
+              example: "文本型"
+        serviceRefId:
+          type: "string"
+          example: "STAFF_ROSTER"
+        source:
+          type: "object"
+          properties:
+            id:
+              type: "string"
+              example: "FUNCTION"
+            title:
+              type: "string"
+              example: "公式"
+        sysExprItems:
+          type: "string"
+          nullable: true
+        systemFieldSetting:
+          type: "string"
+          nullable: true
+        systemsalaryfieldCode:
+          type: "string"
+          nullable: true
+        systemsalaryfieldName:
+          type: "string"
+          nullable: true
+        taxTypeCode:
+          type: "string"
+          nullable: true
+        taxTypeId:
+          type: "string"
+          nullable: true
+        taxTypeName:
+          type: "string"
+          nullable: true
+        typeCode:
+          type: "string"
+          example: "staff"
+        typeId:
+          type: "string"
+          example: "21"
+        typeName:
+          type: "string"
+          example: "员工基本信息"
+        useInStaffSalary:
+          type: "boolean"
+          example: false
+        valid:
+          type: "boolean"
+          example: true
+    CurrentEffectivePayrollInfo:
+      type: "object"
+      properties:
+        count:
+          type: "integer"
+          nullable: true
+        pageDate:
+          type: "object"
+          properties:
+            content:
+              type: "array"
+              items:
+                $ref: "#/components/schemas/CurrentEffectivePayrollInfoContentItem"
+            end:
+              type: "boolean"
+              example: false
+            totalElements:
+              type: "integer"
+              example: 9
+            totalPages:
+              type: "integer"
+              example: 1
+        staffCodes:
+          type: "string"
+          nullable: true
+    CurrentEffectivePayrollInfoContentItem:
+      type: "object"
+      properties:
+        companyId:
+          type: "string"
+          example: "36dbfa02cbe54b11a5543d46b5112168"
+        corporationId:
+          type: "string"
+          nullable: true
+        corporationName:
+          type: "string"
+          nullable: true
+        createdAt:
+          type: "string"
+          example: "2020-08-04T08:02:26.000+0000"
+        disabledFreeTaxRuleName:
+          type: "string"
+          nullable: true
+        id:
+          type: "string"
+          example: "dd3116d7-5a9b-4f74-ad4f-2326e48bf084"
+        salaryPlanList:
+          type: "string"
+          nullable: true
+        salaryPlans:
+          type: "object"
+          nullable: true
+        salaryProfile:
+          type: "object"
+          properties:
+            changeType:
+              type: "object"
+              properties:
+                id:
+                  type: "string"
+                  example: "PROBATION_REVIEW"
+                title:
+                  type: "string"
+                  example: "转正"
+            effectiveAt:
+              type: "string"
+              format: "date-time"
+            inValidAt:
+              type: "string"
+              format: "date-time"
+              nullable: true
+            sourceId:
+              type: "string"
+              nullable: true
+            usingInStaffSalaryfields:
+              type: "string"
+              nullable: true
+            valid:
+              type: "boolean"
+              example: true
+            wrapper:
+              type: "object"
+              properties:
+                items:
+                  type: "object"
+                  properties:
+                    basesalary:
+                      type: "object"
+                      properties:
+                        v:
+                          type: "string"
+                          example: "3000"
+                    positionsalary:
+                      type: "object"
+                      properties:
+                        v:
+                          type: "string"
+                          example: "2000"
+                    绩效工资1596445324947:
+                      type: "object"
+                      properties:
+                        v:
+                          type: "string"
+                          example: "1000"
+        staff:
+          type: "object"
+          properties:
+            contractType:
+              type: "string"
+              example: "劳动合同"
+            corporationId:
+              type: "string"
+              nullable: true
+            country:
+              type: "string"
+              nullable: true
+            departmentId:
+              type: "string"
+              example: "0"
+            departmentName:
+              type: "string"
+              example: "杭州艾骊莎信息科技有限公司"
+            enrollInDate:
+              type: "string"
+              example: "2018-07-01T16:00:00.000+0000"
+            id:
+              type: "string"
+              example: "044caed7-924e-4275-831f-c8fa03b13406"
+            idCardNo:
+              type: "string"
+              example: "19820512"
+            idCardType:
+              type: "string"
+              example: "其他"
+            lastWorkDay:
+              type: "string"
+              nullable: true
+            leaveDate:
+              type: "string"
+              format: "date"
+              nullable: true
+            legalName:
+              type: "string"
+              nullable: true
+            mobileNo:
+              type: "string"
+              example: "13707313549"
+            positionId:
+              type: "string"
+              example: "a789e212-16e3-4a26-bda6-ebf039d7e0fe"
+            positionLevelName:
+              type: "string"
+              nullable: true
+            positionName:
+              type: "string"
+              example: "校长"
+            positiveDate:
+              type: "string"
+              format: "date"
+              nullable: true
+            sequence:
+              type: "integer"
+              example: 19
+            sex:
+              type: "string"
+              nullable: true
+            staffName:
+              type: "string"
+              example: "颜亮"
+            staffNo:
+              type: "string"
+              nullable: true
+            staffStatus:
+              type: "string"
+              example: "IN_SERVICE"
+            staffType:
+              type: "string"
+              example: "全职"
+        taxExemption:
+          type: "string"
+          nullable: true
+        taxRole:
+          type: "object"
+          properties:
+            id:
+              type: "string"
+              example: "NATIVE"
+            title:
+              type: "string"
+              example: "居民"
+        totalAmount:
+          type: "string"
+          nullable: true
+        updatedAt:
+          type: "string"
+          format: "date"
+          nullable: true
+        workHourType:
+          type: "string"
+          nullable: true
+    AccumulatedTaxableIncome:
+      type: "object"
+      properties:
+        code:
+          type: "string"
+          example: "0"
+        data:
+          type: "object"
+          properties:
+            content:
+              type: "array"
+              items:
+                $ref: "#/components/schemas/AccumulatedTaxableIncomeContentItem"
+            end:
+              type: "boolean"
+              example: false
+            totalElements:
+              type: "integer"
+              example: 0
+            totalPages:
+              type: "integer"
+              example: 0
+        errorResult:
+          type: "boolean"
+          example: false
+        message:
+          type: "string"
+          nullable: true
+        showType:
+          type: "boolean"
+          example: false
+        url:
+          type: "string"
+          nullable: true
+    AccumulatedTaxableIncomeContentItem:
+      type: "object"
+      properties:
+        accumAllowedDeductedDonation:
+          type: "integer"
+          example: 0
+        accumChildrenEducation:
+          type: "integer"
+          example: 0
+        accumCommercialHealthInsurance:
+          type: "integer"
+          example: 0
+        accumContinuingEdu:
+          type: "integer"
+          example: 0
+        accumDeduction:
+          type: "integer"
+          example: 15000
+        accumEnterpriseOccupationAnnuity:
+          type: "integer"
+          example: 0
+        accumHouseRent:
+          type: "integer"
+          example: 0
+        accumMonthTax:
+          type: "integer"
+          example: 0
+        accumMortgage:
+          type: "integer"
+          example: 0
+        accumOther:
+          type: "integer"
+          example: 0
+        accumOtherDeduction:
+          type: "integer"
+          example: 0
+        accumOthertaxableincome:
+          type: "integer"
+          example: 0
+        accumPffee:
+          type: "integer"
+          example: 480
+        accumSsalary:
+          type: "number"
+          example: 9081.91
+        accumSsfee:
+          type: "integer"
+        accumSupportElderly:
+          type: "integer"
+          example: 0
+        accumTaxDeferredInsurance:
+          type: "integer"
+          example: 0
+        accumTaxfreeIncome:
+          type: "integer"
+          nullable: true
+        corporationId:
+          type: "string"
+          example: "d2822608-d5f4-47dd-9776-9ae2f24c9993"
+        corporationName:
+          type: "string"
+          example: "杭州艾骊莎信息科技有限公司"
+        createdAt:
+          type: "string"
+          example: "2020-09-08T15:25:22.000+0000"
+        departmentId:
+          type: "string"
+          example: "7"
+        departmentName:
+          type: "string"
+          example: "财务部"
+        enrollInDate:
+          type: "string"
+          example: "2020-06-15T16:00:00.000+0000"
+        historySalaryPlanId:
+          type: "string"
+          example: "23593"
+        id:
+          type: "string"
+          example: "1805256"
+        idCardNo:
+          type: "string"
+          example: "13567190293"
+        importActualPaidTax:
+          type: "boolean"
+          example: false
+        mobileNo:
+          type: "string"
+          example: "13567190293"
+        month:
+          type: "integer"
+          example: 8
+        salaryMonth:
+          type: "integer"
+          example: 8
+        salaryYear:
+          type: "string"
+          example: "2020"
+        staffId:
+          type: "string"
+          example: "5a43bd72-6b47-4cd6-b56d-4ed401dc0dca"
+        staffName:
+          type: "string"
+          example: "盛俊"
+        staffNo:
+          type: "string"
+          example: "1"
+        thismonthactuallypaidsalarytax:
+          type: "number"
+          example: 0
+        thismonthsalarytax:
+          type: "number"
+          example: 0
+        thismonthshouddeductsalarytax:
+          type: "number"
+          example: 0
+        updatedAt:
+          type: "string"
+          example: "2020-09-08T15:25:22.000+0000"
+        year:
+          type: "integer"
+          example: 2020
+    CompanyPayslipResult:
+      type: "object"
+      properties:
+        code:
+          type: "string"
+          example: "0"
+        data:
+          type: "object"
+          properties:
+            page:
+              type: "object"
+              properties:
+                number:
+                  type: "integer"
+                  example: 0
+                size:
+                  type: "integer"
+                  example: 50
+                totalElements:
+                  type: "integer"
+                  example: 2
+                totalPages:
+                  type: "integer"
+                  example: 1
+            _embedded:
+              type: "object"
+              properties:
+                payslipResults:
+                  type: "array"
+                  items:
+                    $ref: "#/components/schemas/CompanyPayslipResultItem"
+        errorResult:
+          type: "boolean"
+          example: false
+        message:
+          type: "string"
+          nullable: true
+        showType:
+          type: "string"
+          example: "0"
+        url:
+          type: "string"
+          nullable: true
+    CompanyPayslipResultItem:
+      type: "object"
+      properties:
+        accessPrivilege:
+          type: "string"
+          example: "OWNER"
+        feedBackNum:
+          type: "string"
+          example: "0"
+        id:
+          type: "string"
+          example: "24717"
+        month:
+          type: "integer"
+          example: 10
+        notConfirmNum:
+          type: "integer"
+          example: 0
+        payslipConfigId:
+          type: "string"
+          example: "10833"
+        payslipConfigName:
+          type: "string"
+          example: "杭州艾骊莎薪资核算-默认工资单20200805152843"
+        publishNum:
+          type: "integer"
+          example: 0
+        publishedAt:
+          type: "string"
+          nullable: true
+        resourcePublicity:
+          type: "string"
+          example: "PERSONAL"
+        salaryPlanId:
+          type: "string"
+          example: "10010597"
+        staffNum:
+          type: "integer"
+          example: 1
+        tableCode:
+          type: "string"
+          example: "payroll.table.payslip36dbfa02cbe54b11a5543d46b511216810833"
+        year:
+          type: "string"
+          example: "2020"
+    AllGroupShiftData:
+      type: "object"
+      properties:
+        code:
+          type: "string"
+          example: "0"
+        data:
+          type: "object"
+          properties:
+            "2b698686-5eb2-403b-a4bf-f0c0a9ebf202":
+              type: "array"
+              items:
+                $ref: "#/components/schemas/GroupShiftData1"
+            "7ee84af9-ae1b-4ff7-b49d-b71988e22a9c":
+              type: "array"
+              items:
+                $ref: "#/components/schemas/GroupShiftData2"
+            "1353b9ab-68f0-4953-b1d9-709991312604":
+              type: "array"
+              items:
+                $ref: "#/components/schemas/GroupShiftData3"
+        errorResult:
+          type: "boolean"
+          example: false
+        message:
+          type: "string"
+          nullable: true
+        showType:
+          type: "string"
+          example: "0"
+        url:
+          type: "string"
+          nullable: true
+    GroupShiftData1:
+      type: "object"
+      properties:
+        abbr:
+          type: "string"
+          example: "9-5"
+        colorIndex:
+          type: "integer"
+          example: 7
+        id:
+          type: "string"
+          example: "390206ee-b56c-40ae-a8bf-762871319a26"
+        shiftType:
+          type: "string"
+          example: "NORMAL"
+        workHours:
+          type: "number"
+          example: 7
+    GroupShiftData2:
+      type: "object"
+      properties:
+        abbr:
+          type: "string"
+          example: "早九"
+        colorIndex:
+          type: "string"
+          example: "3"
+        id:
+          type: "string"
+          example: "5c2a0087-fd18-4f47-a0f5-aae52cf4f336"
+        shiftType:
+          type: "string"
+          example: "NORMAL"
+        workHours:
+          type: "number"
+          example: 7.5
+    GroupShiftData3:
+      type: "object"
+      properties:
+        abbr:
+          type: "string"
+          example: "9-5"
+        colorIndex:
+          type: "integer"
+          example: 7
+        id:
+          type: "string"
+          example: "390206ee-b56c-40ae-a8bf-762871319a26"
+        shiftType:
+          type: "string"
+          example: "NORMAL"
+        workHours:
+          type: "integer"
+          nullable: true
+    ActualListData:
+      type: "object"
+      properties:
+        code:
+          type: "string"
+          example: "0"
+        data:
+          type: "object"
+          properties:
+            dateList:
+              type: "array"
+              items:
+                $ref: "#/components/schemas/ActualListDateItem"
+            index:
+              type: "integer"
+              example: 1
+            pageData:
+              type: "object"
+              properties:
+                content:
+                  type: "array"
+                  items:
+                    $ref: "#/components/schemas/ActualListPageDataContentItem"
+                end:
+                  type: "boolean"
+                  example: false
+                totalElements:
+                  type: "integer"
+                  example: 8
+                totalPages:
+                  type: "integer"
+                  example: 1
+        errorResult:
+          type: "boolean"
+          example: false
+        message:
+          type: "string"
+          nullable: true
+        showType:
+          type: "string"
+          example: "0"
+        url:
+          type: "string"
+          nullable: true
+    ActualListDateItem:
+      type: "object"
+      properties:
+        day:
+          type: "integer"
+          example: 1
+        holidayName:
+          type: "string"
+          nullable: true
+        isWorkingDay:
+          type: "boolean"
+          example: true
+        month:
+          type: "integer"
+          example: 9
+        planDate:
+          type: "string"
+          format: "date"
+          example: "2020-09-01"
+        weekDay:
+          type: "string"
+          example: "二"
+    ActualListPageDataContentItem:
+      type: "object"
+      properties:
+        changeDepartmentDate:
+          type: "string"
+          format: "date"
+          nullable: true
+        departmentId:
+          type: "string"
+          example: "0"
+        departmentName:
+          type: "string"
+          example: "杭州艾骊莎信息科技有限公司"
+        enrolledTime:
+          type: "string"
+          format: "date-time"
+          nullable: true
+        foreign:
+          type: "string"
+          nullable: true
+        groupId:
+          type: "string"
+          example: "1353b9ab-68f0-4953-b1d9-709991312604"
+        lastWorkDay:
+          type: "string"
+          nullable: true
+        positionName:
+          type: "string"
+          example: "web讲师"
+        staffId:
+          type: "string"
+          example: "90fa87af-0b54-46a9-baf7-c6778823d113"
+        staffName:
+          type: "string"
+          example: "刘杰音"
+        staffNo:
+          type: "string"
+          nullable: true
+        totalDays:
+          type: "integer"
+          nullable: true
+        totalHours:
+          type: "integer"
+          nullable: true
+        workShiftList:
+          type: "array"
+          items:
+            $ref: "#/components/schemas/WorkShiftListItem"
+    WorkShiftListItem:
+      type: "object"
+      properties:
+        abbr:
+          type: "string"
+          example: "固"
+        colorIndex:
+          type: "integer"
+          example: 5
+        groupId:
+          type: "string"
+          example: "1353b9ab-68f0-4953-b1d9-709991312604"
+        id:
+          type: "string"
+          example: "312ae335-cecd-42d3-af7a-85153d06f1e4"
+        isEdit:
+          type: "boolean"
+          example: true
+        isWorkingDay:
+          type: "boolean"
+          example: true
+        planDate:
+          type: "string"
+          format: "date"
+          example: "2020-09-01"
+        shiftId:
+          type: "string"
+          example: "f11b24b8-a5f3-4408-978a-305a7cf3ec3f"
+        signId:
+          type: "string"
+          nullable: true
+        staffId:
+          type: "string"
+          example: "90fa87af-0b54-46a9-baf7-c6778823d113"
+        staffName:
+          type: "string"
+          example: "刘杰音"
+        workHours:
+          type: "integer"
+          example: 8
+    SignRecordData:
+      type: "object"
+      properties:
+        code:
+          type: "string"
+          example: "0"
+        data:
+          type: "object"
+          properties:
+            content:
+              type: "array"
+              items:
+                $ref: "#/components/schemas/SignRecordDataListItem"
+            page:
+              type: "integer"
+              example: 0
+            rows:
+              type: "integer"
+              example: 0
+            totalElements:
+              type: "integer"
+              example: 1
+            totalPages:
+              type: "integer"
+              example: 1
+        errorResult:
+          type: "boolean"
+          example: false
+        message:
+          type: "string"
+          nullable: true
+        showType:
+          type: "integer"
+          example: 0
+        url:
+          type: "string"
+          nullable: true
+    SignRecordDataListItem:
+      type: "object"
+      properties:
+        applicationId:
+          type: "string"
+          nullable: true
+        applicationStatus:
+          type: "string"
+          nullable: true
+        attendanceSignDeviceType:
+          type: "string"
+          example: "HR_OPERATION"
+        companyId:
+          type: "string"
+          example: "36dbfa02cbe54b11a5543d46b5112168"
+        createdDate:
+          type: "string"
+          example: "1601023142000"
+        dataSourcesDescription:
+          type: "string"
+          example: "HR（13567190293）"
+        departmentId:
+          type: "string"
+          example: "7"
+        departmentName:
+          type: "string"
+          example: "财务部"
+        deviceToken:
+          type: "string"
+          nullable: true
+        id:
+          type: "string"
+          example: "159f3df5-119f-44dc-94eb-0b48b38e37dc"
+        isEffective:
+          type: "boolean"
+          example: true
+        isWarning:
+          type: "boolean"
+          example: false
+        mobileNo:
+          type: "string"
+          example: "13567190293"
+        phoneName:
+          type: "string"
+          nullable: true
+        positionId:
+          type: "string"
+        positionName:
+          type: "string"
+          nullable: true
+        processStatus:
+          type: "string"
+          nullable: true
+        rows:
+          type: "integer"
+          nullable: true
+        signPlace:
+          type: "string"
+          example: "Office-1"
+        signTime:
+          type: "string"
+          example: "1601023080000"
+        staffId:
+          type: "string"
+          example: "5a43bd72-6b47-4cd6-b56d-4ed401dc0dca"
+        staffName:
+          type: "string"
+          example: "盛俊"
+        staffNo:
+          type: "string"
+          example: "1"
+        url:
+          type: "string"
+          nullable: true
+    OvertimeForm:
+      type: "object"
+      properties:
+        adjustRestHour:
+          type: "number"
+          example: 0
+        applyOvertimeHour:
+          type: "number"
+          example: 1
+        compensation:
+          type: "number"
+          example: 0
+        departmentName:
+          type: "string"
+          example: "财务部"
+        endTime:
+          type: "string"
+          example: "1601042880000"
+        formSourceDescription:
+          type: "string"
+          example: "HR新增"
+        mobileNo:
+          type: "string"
+          example: "13567190293"
+        overtimeType:
+          type: "string"
+          example: "STATUTORY"
+        remarks:
+          type: "string"
+          example: "Delayed"
+        salaryHour:
+          type: "string"
+          example: "0"
+        staffId:
+          type: "string"
+          example: "5a43bd72-6b47-4cd6-b56d-4ed401dc0dca"
+        staffName:
+          type: "string"
+          example: "盛俊"
+        staffNo:
+          type: "string"
+          example: "1"
+        startTime:
+          type: "string"
+          example: "1601039280000"
+        surplusHour:
+          type: "integer"
+          example: 0
+        updateOvertimeHour:
+          type: "string"
+    VacationData:
+      type: "object"
+      properties:
+        code:
+          type: "string"
+          example: "0"
+        data:
+          type: "object"
+          properties:
+            content:
+              type: "array"
+              items:
+                $ref: "#/components/schemas/VacationDataContentItem"
+            end:
+              type: "boolean"
+              example: false
+            totalElements:
+              type: "integer"
+              example: 1
+            totalPages:
+              type: "integer"
+              example: 1
+        errorResult:
+          type: "boolean"
+          example: false
+        message:
+          type: "string"
+          nullable: true
+        showType:
+          type: "string"
+          example: "0"
+        url:
+          type: "string"
+          nullable: true
+    VacationDataContentItem:
+      type: "object"
+      properties:
+        departmentName:
+          type: "string"
+          example: "杭州艾骊莎信息科技有限公司"
+        duration:
+          type: "number"
+          example: 24
+        endHour:
+          type: "string"
+          format: "date-time"
+          nullable: true
+        endTime:
+          type: "string"
+          format: "date-time"
+        id:
+          type: "string"
+          example: "6fc9a694-048b-44ee-b96b-80712afc7d84"
+        mobileNo:
+          type: "string"
+          example: "18073111159"
+        positionId:
+          type: "string"
+          nullable: true
+        positionName:
+          type: "string"
+          example: "web讲师"
+        processCode:
+          type: "string"
+        processType:
+          type: "string"
+          nullable: true
+        resource:
+          type: "string"
+          example: "HR新增(13567190293)"
+        resourceType:
+          type: "string"
+          example: "INSERT"
+        staffId:
+          type: "string"
+          nullable: true
+        staffName:
+          type: "string"
+          example: "刘杰音"
+        staffNo:
+          type: "string"
+        startHour:
+          type: "string"
+          format: "date-time"
+          nullable: true
+        startTime:
+          type: "string"
+          format: "date-time"
+        statusKey:
+          type: "string"
+          example: "IN_FORCE"
+        unit:
+          type: "string"
+          example: "小时"
+        updateTime:
+          type: "string"
+          format: "date-time"
+        vacationId:
+          type: "string"
+          nullable: true
+        vacationName:
+          type: "string"
+          example: "事假"
+        vacationStatus:
+          type: "string"
+          example: "已生效"
+        vacationType:
+          type: "string"
+          example: "AFFAIR_LEAVE"
+    DailyReportInfoList:
+      type: "object"
+      properties:
+        code:
+          type: "string"
+          example: "0"
+        data:
+          type: "object"
+          properties:
+            content:
+              type: "array"
+              items:
+                $ref: "#/components/schemas/DailyReportInfoListDataContentItem"
+            end:
+              type: "boolean"
+              example: false
+            totalElements:
+              type: "integer"
+              example: 8
+            totalPages:
+              type: "integer"
+              example: 1
+        errorResult:
+          type: "boolean"
+          example: false
+        message:
+          type: "string"
+          nullable: true
+        showType:
+          type: "string"
+          example: "0"
+        url:
+          type: "string"
+          nullable: true
+    DailyReportInfoListDataContentItem:
+      type: "object"
+      properties:
+        ADJUST_REST:
+          type: "integer"
+          example: 0
+        AFFAIR_LEAVE:
+          type: "integer"
+          example: 0
+        ANNUAL_LEAVE:
+          type: "integer"
+          example: 0
+        FULL_PAY_SICK_LEAVE:
+          type: "integer"
+          example: 0
+        FUNERAL_LEAVE:
+          type: "integer"
+          example: 0
+        HOME_LEAVE:
+          type: "integer"
+          example: 0
+        LACTATION_LEAVE:
+          type: "integer"
+          example: 0
+        MARITAL_LEAVE:
+          type: "integer"
+          example: 0
+        MATERNITY_LEAVE:
+          type: "integer"
+          example: 0
+        OTHER_VACATION:
+          type: "integer"
+          example: 0
+        PAID_SICK_LEAVE:
+          type: "integer"
+          example: 0
+        PATERNITY_LEAVE:
+          type: "integer"
+          example: 0
+        PRENATAL_CHECK_UP:
+          type: "integer"
+          example: 0
+        abnormal:
+          type: "boolean"
+          example: false
+        absenceHours:
+          type: "number"
+          example: 0
+        absenceTimes:
+          type: "number"
+          example: 0
+        actualAttendanceHours:
+          type: "number"
+          example: 0
+        appealTimes:
+          type: "number"
+          example: 0
+        businessTravelDays:
+          type: "number"
+          example: 0
+        deepNightHours:
+          type: "number"
+          example: 0
+        delayDayOffHours:
+          type: "number"
+          example: 0
+        delayHolidayHours:
+          type: "number"
+          example: 0
+        delayWorkdayHours:
+          type: "number"
+          example: 0
+        departmentId:
+          type: "number"
+          example: 0
+        departmentName:
+          type: "string"
+          example: "杭州艾骊莎信息科技有限公司"
+        earlyMinutes:
+          type: "number"
+          example: 0
+        earlyTimes:
+          type: "number"
+          example: 0
+        fieldWorkHours:
+          type: "number"
+          example: 0
+        id:
+          type: "string"
+          example: "9fb83543-3c9f-4d0e-b0ba-b432a827bc9f"
+        isAbsence:
+          type: "boolean"
+          example: false
+        isFixed:
+          type: "boolean"
+          example: false
+        lateMinutes:
+          type: "boolean"
+          example: false
+        lateTimes:
+          type: "number"
+          example: 0
+        mobileNo:
+          type: "string"
+          example: "13707313549"
+        normalHours:
+          type: "number"
+          example: 0
+        positionId:
+          type: "string"
+          example: "a789e212-16e3-4a26-bda6-ebf039d7e0fe"
+        positionName:
+          type: "string"
+          example: "校长"
+        shiftId:
+          type: "string"
+          example: "f11b24b8-a5f3-4408-978a-305a7cf3ec3f"
+        shiftName:
+          type: "string"
+          example: "固"
+        shiftType:
+          type: "string"
+          example: "NORMAL"
+        signDate:
+          type: "string"
+          format: "date"
+          example: "2020-09-25"
+        signInMissingTimes:
+          format: "number"
+          example: 0
+        signOutMissingTimes:
+          type: "number"
+          example: 0
+        signType:
+          type: "string"
+          example: "Normal"
+        signTypeExplain:
+          type: "string"
+          example: "Normal"
+        staffId:
+          type: "string"
+          example: "044caed7-924e-4275-831f-c8fa03b13406"
+        staffName:
+          type: "string"
+          example: "颜亮"
+        staffNo:
+          type: "string"
+          nullable: true
+        statutoryHours:
+          type: "number"
+          example: 0
+        supposedAttendanceHours:
+          type: "number"
+          example: 8
+        updateDate:
+          type: "string"
+          format: "date-time"
+        weekendHours:
+          type: "number"
+          example: 0
+    PeriodReportInfoList:
+      type: "object"
+      properties:
+        code:
+          type: "string"
+          example: "0"
+        data:
+          type: "object"
+          properties:
+            content:
+              type: "array"
+              items:
+                $ref: "#/components/schemas/PeriodReportInfoListDataContentItem"
+            end:
+              type: "boolean"
+              example: false
+            totalElements:
+              type: "integer"
+              example: 8
+            totalPages:
+              type: "integer"
+              example: 1
+        errorResult:
+          type: "boolean"
+          example: false
+        message:
+          type: "string"
+          nullable: true
+        showType:
+          type: "string"
+          example: "0"
+        url:
+          type: "string"
+          nullable: true
+    PeriodReportInfoListDataContentItem:
+      type: "object"
+      properties:
+        ADJUST_REST:
+          type: "number"
+          example: 0
+        AFFAIR_LEAVE:
+          type: "number"
+          example: 0
+        ANNUAL_LEAVE:
+          type: "number"
+          example: 0
+        FULL_PAY_SICK_LEAVE:
+          type: "number"
+          example: 0
+        FUNERAL_LEAVE:
+          type: "number"
+          example: 0
+        HOME_LEAVE:
+          type: "number"
+          example: 0
+        LACTATION_LEAVE:
+          type: "number"
+          example: 0
+        MARITAL_LEAVE:
+          type: "number"
+          example: 0
+        MATERNITY_LEAVE:
+          type: "number"
+          example: 0
+        OTHER_VACATION:
+          type: "number"
+          example: 0
+        PAID_SICK_LEAVE:
+          type: "number"
+          example: 0
+        PATERNITY_LEAVE:
+          type: "number"
+          example: 0
+        PRENATAL_CHECK_UP:
+          type: "number"
+          example: 0
+        absenceHours:
+          type: "number"
+          example: 0
+        absenceNumber:
+          type: "number"
+          example: 12
+        absenceTimes:
+          type: "number"
+          example: 0
+        actualAttendanceDays:
+          type: "number"
+          example: 6
+        actualAttendanceHours:
+          type: "number"
+          example: 144
+        appealTimes:
+          type: "number"
+          example: 0
+        attendanceShift:
+          type: "string"
+        businessTravelDays:
+          type: "number"
+          example: 0
+        dayOffDelayHours:
+          type: "number"
+          example: 0
+        deepNightDuration:
+          type: "number"
+          example: 0
+        departmentId:
+          type: "string"
+          example: "7"
+        departmentName:
+          type: "string"
+          example: "财务部"
+        earlyMinutes:
+          type: "number"
+          example: 0
+        earlyTimes:
+          type: "number"
+          example: 0
+        enrollInDate:
+          type: "string"
+          format: "date"
+          example: "2019-07-01"
+        fieldWorkHours:
+          type: "number"
+          example: 0
+        holidayDelayHours:
+          type: "number"
+          example: 0
+        id:
+          type: "string"
+          example: "6cdf5274-47c1-424b-9e12-193b47ef169f"
+        lateMinutes:
+          type: "number"
+          example: 0
+        lateTimes:
+          type: "number"
+          example: 0
+        leaveDate:
+          type: "string"
+          format: "date-time"
+        mobileNo:
+          type: "string"
+          example: "18268128047"
+        normalHour:
+          type: "number"
+          example: 0
+        normalToRestHour:
+          type: "number"
+          example: 0
+        normalToSalaryHour:
+          type: "number"
+          example: 0
+        positionId:
+          type: "string"
+          example: "7fd0ac20-9d44-4395-ae37-1c5498f48400"
+        positionName:
+          type: "string"
+          example: "结算专员"
+        remark:
+          type: "string"
+          nullable: true
+        restDays:
+          type: "integer"
+          example: 7
+        signInMissingTimes:
+          type: "number"
+          example: 0
+        signOutMissingTimes:
+          type: "number"
+          example: 0
+        staffId:
+          type: "string"
+          example: "f2dc64d0-cb7e-479f-b534-3bcbd27d7e41"
+        staffName:
+          type: "string"
+          example: "郑晴"
+        staffNo:
+          type: "string"
+          example: "2"
+        statutoryHour:
+          type: "number"
+          example: 0
+        statutoryToRestHour:
+          type: "number"
+          example: 0
+        statutoryToSalaryHour:
+          type: "number"
+          example: 0
+        supposedAttendanceDays:
+          type: "integer"
+          example: 23
+        supposedAttendanceHours:
+          type: "number"
+          example: 184
+        updateDate:
+          type: "string"
+          format: "date-time"
+        weekendHour:
+          type: "number"
+          example: 0
+        weekendToRestHour:
+          type: "number"
+          example: 0
+        weekendToSalaryHour:
+          type: "number"
+          example: 0
+        workdayDelayHours:
+          type: "number"
+          example: 0
+    OvertimeMonthlySummary:
+      type: "object"
+      properties:
+        code:
+          type: "string"
+          example: "0"
+        data:
+          type: "object"
+          properties:
+            content:
+              type: "array"
+              items:
+                $ref: "#/components/schemas/OvertimeMonthlySummaryContentItem"
+            end:
+              type: "boolean"
+              example: false
+            totalElements:
+              type: "integer"
+              example: 8
+            totalPages:
+              type: "integer"
+              example: 1
+        errorResult:
+          type: "boolean"
+          example: false
+        message:
+          type: "string"
+          nullable: true
+        showType:
+          type: "string"
+          example: "0"
+        url:
+          type: "string"
+          nullable: true
+    OvertimeMonthlySummaryContentItem:
+      type: "object"
+      properties:
+        adjustId:
+          type: "string"
+          example: "c5ab57e5-838a-4ce9-8c71-87bf5e6affc1"
+        adjustRestHour:
+          type: "number"
+          example: 0
+        allAdjustRestHour:
+          type: "number"
+          example: 0
+        departmentId:
+          type: "string"
+          example: "0"
+        departmentName:
+          type: "string"
+          example: "杭州艾骊莎信息科技有限公司"
+        id:
+          type: "string"
+          example: "6abc1b3e-f581-4630-9d02-d87bd203c7a7"
+        invalidAdjustRestHour:
+          type: "number"
+          example: 0
+        leaveAdjustRuleId:
+          type: "string"
+          example: "01ebeda6-6b37-424a-819e-2bc6b2b31689"
+        mobileNo:
+          type: "string"
+          example: "13707313549"
+        month:
+          type: "string"
+          nullable: true
+        normalHour:
+          type: "number"
+          example: 0
+        normalToExpiredHour:
+          type: "number"
+          example: 0
+        normalToRestHour:
+          type: "number"
+          example: 0
+        normalToSalaryHour:
+          type: "number"
+          example: 0
+        normalToUnCarriedHour:
+          type: "number"
+          example: 0
+        positionId:
+          type: "string"
+          example: "a789e212-16e3-4a26-bda6-ebf039d7e0fe"
+        positionName:
+          type: "string"
+          example: "校长"
+        staffId:
+          type: "string"
+          example: "044caed7-924e-4275-831f-c8fa03b13406"
+        staffName:
+          type: "string"
+          example: "颜亮"
+        staffNo:
+          type: "string"
+          nullable: true
+        statutoryHour:
+          type: "number"
+          example: 0
+        statutoryToExpiredHour:
+          type: "number"
+          example: 0
+        statutoryToRestHour:
+          type: "number"
+          example: 0
+        statutoryToSalaryHour:
+          type: "number"
+          example: 0
+        statutoryToUnCarriedHour:
+          type: "number"
+          example: 0
+        totalNormalHour:
+          type: "number"
+          example: 0
+        totalNormalSalaryHour:
+          type: "number"
+          example: 0
+        totalStatutoryHour:
+          type: "number"
+          example: 0
+        totalStatutorySalaryHour:
+          type: "number"
+          example: 0
+        totalWeekendHour:
+          type: "number"
+          example: 0
+        totalWeekendSalaryHour:
+          type: "number"
+          example: 0
+        usedAdjustRestHour:
+          type: "number"
+          example: 0
+        usedNormalSalaryHour:
+          type: "number"
+          example: 0
+        usedStatutorySalaryHour:
+          type: "number"
+          example: 0
+        usedWeekendSalaryHour:
+          type: "number"
+          example: 0
+        weekendHour:
+          type: "number"
+          example: 0
+        weekendToExpiredHour:
+          type: "number"
+          example: 0
+        weekendToRestHour:
+          type: "number"
+          example: 0
+        weekendToSalaryHour:
+          type: "number"
+          example: 0
+        weekendToUnCarriedHour:
+          type: "number"
+          example: 0
+    SerarcLeaveHasUseByCondition:
+      type: "object"
+      properties:
+        content:
+          type: "array"
+          items:
+            $ref: "#/components/schemas/SerarcLeaveHasUseByConditionContentItem"
+        page:
+          type: "integer"
+          example: 0
+        rows:
+          type: "integer"
+          example: 0
+        totalElements:
+          type: "integer"
+          example: 9
+        totalPages:
+          type: "integer"
+          example: 1
+    SerarcLeaveHasUseByConditionContentItem:
+      type: "object"
+      properties:
+        adjustResetLeaveDayUsed:
+          type: "number"
+          example: 0
+        adjustResetLeaveHourUsed:
+          type: "number"
+          example: 0
+        affairBillId:
+          type: "string"
+          example: "86d578d8-f2b8-4059-b776-b675f4b76f79"
+        annualBillId:
+          type: "string"
+          example: "3ab9c838-2a99-4116-a134-c709d5c5b5dc"
+        belongsToYear:
+          type: "string"
+          example: "2020"
+        companyId:
+          type: "string"
+          example: "36dbfa02cbe54b11a5543d46b5112168"
+        departmentId:
+          type: "string"
+          example: "21"
+        departmentName:
+          type: "string"
+          example: "行政部"
+        enrollInDate:
+          type: "string"
+          example: "1561910400000"
+        enrollWorkYears:
+          type: "number"
+          example: 1.2
+        funeralBillId:
+          type: "string"
+          example: "dd9de69e-ef5a-4ded-aa6f-56143eb5e275"
+        hasUseAffairLeaveDays:
+          type: "number"
+          example: 0
+        hasUseAffairLeaveHours:
+          type: "number"
+          example: 0
+        hasUseAnnualDays:
+          type: "number"
+          example: 0
+        hasUseAnnualHours:
+          type: "number"
+          example: 0
+        hasUseBuckleSalaryDays:
+          type: "number"
+          example: 0
+        hasUseBuckleSalaryHours:
+          type: "number"
+          example: 0
+        hasUseFuneralDays:
+          type: "number"
+          example: 0
+        hasUseFuneralHours:
+          type: "number"
+          example: 0
+        hasUseHomeDays:
+          type: "number"
+          example: 0
+        hasUseHomeHours:
+          type: "number"
+          example: 0
+        hasUseLactationDays:
+          type: "number"
+          example: 0
+        hasUseLactationHours:
+          type: "number"
+          example: 0
+        hasUseMarriageDays:
+          type: "number"
+          example: 0
+        hasUseMarriageHours:
+          type: "number"
+          example: 0
+        hasUseMaternityLeaveDays:
+          type: "number"
+          example: 0
+        hasUseMaternityLeaveHours:
+          type: "number"
+          example: 0
+        hasUseOtherDays:
+          type: "number"
+          example: 0
+        hasUseOtherHours:
+          type: "number"
+          example: 0
+        hasUsePaternityDays:
+          type: "number"
+          example: 0
+        hasUsePaternityHours:
+          type: "number"
+          example: 0
+        hasUsePrenatalCheckUpDays:
+          type: "number"
+          example: 0
+        hasUsePrenatalCheckUpHours:
+          type: "number"
+          example: 0
+        hasUseStatutoryAnnualDays:
+          type: "number"
+          example: 0
+        hasUseStatutoryAnnualHours:
+          type: "number"
+          example: 0
+        hasUseWelfareAnnualDays:
+          type: "number"
+          example: 0
+        hasUseWelfareAnnualHours:
+          type: "number"
+          example: 0
+        homeBillId:
+          type: "string"
+          example: "dabdcc4f-2ce7-42d0-9390-cc84b3394769"
+        lacationBillId:
+          type: "string"
+          example: "4043cb1b-42fe-4f4a-b7dc-16297e7466ed"
+        leaveUserDefinedEntityList:
+          type: "string"
+          example: "[]"
+        marriageBillId:
+          type: "string"
+          example: "8550c942-ce68-4980-ac5e-69c6a9bf0506"
+        maternityBillId:
+          type: "string"
+          example: "37d4c0e5-ad80-48e7-86d1-8cbe7cc1dc99"
+        mobileNo:
+          type: "string"
+          example: "15388906455"
+        otherBillId:
+          type: "string"
+          example: "f77d0f53-de4e-40b0-b3fb-9880b8149f40"
+        paternityBillId:
+          type: "string"
+          example: "adf10b85-dc75-4645-867d-13610fcdf316"
+        prenatalCheckUpBillId:
+          type: "string"
+          example: "3029d4b0-baa6-4ad3-8fdb-e30e9432c0f9"
+        sickBillId:
+          type: "string"
+          example: "b4c71e8d-d6e1-4d29-b478-b97906cb2eab"
+        sickLeaveDayUsed:
+          type: "integer"
+          example: 0
+        sickLeaveHourUsed:
+          type: "integer"
+          example: 0
+        staffId:
+          type: "string"
+          example: "6aab1eeb-5a81-4927-8d42-5c83c5d37d1c"
+        staffName:
+          type: "string"
+          example: "聂晶"
+        staffStatus:
+          type: "string"
+          example: "IN_SERVICE"
+        userDefinedNames:
+          type: "string"
+          example: "[]"
+    SickBillPage:
+      type: "object"
+      properties:
+        archive:
+          type: "boolean"
+          example: false
+        content:
+          type: "array"
+          items:
+            $ref: "#/components/schemas/SickBillPageContentItem"
+        page:
+          type: "integer"
+          example: 0
+        rows:
+          type: "integer"
+          example: 0
+        totalElements:
+          type: "integer"
+          example: 8
+        totalPages:
+          type: "integer"
+          example: 1
+    SickBillPageContentItem:
+      type: "object"
+      properties:
+        belongsToYear:
+          type: "string"
+          example: "2020"
+        canUseDayHour:
+          type: "string"
+        companyId:
+          type: "string"
+          example: "36dbfa02cbe54b11a5543d46b5112168"
+        departmentId:
+          type: "string"
+          example: "21"
+        departmentName:
+          type: "string"
+          example: "行政部"
+        dueDate:
+          type: "string"
+          example: "1609344000000"
+        enrollInDate:
+          type: "string"
+          example: "1561910400000"
+        enrollWorkYears:
+          type: "number"
+          example: 1.2
+        hasUseBuckleSalaryDayHour:
+          type: "string"
+        hasUseBuckleSalaryDays:
+          type: "integer"
+          example: 0
+        hasUseBuckleSalaryHours:
+          type: "integer"
+          example: 0
+        hasUseDayHour:
+          type: "string"
+        hasUseLeaveDays:
+          type: "number"
+          example: 0
+        hasUseLeaveHours:
+          type: "number"
+          example: 0
+        hasUseTotalLeaveDayHours:
+          type: "string"
+        id:
+          type: "string"
+          example: "b4c71e8d-d6e1-4d29-b478-b97906cb2eab"
+        isArchiveBill:
+          type: "boolean"
+          example: false
+        lastTimeCalculationTime:
+          type: "string"
+          example: "1577808000000"
+        mobileNo:
+          type: "string"
+          example: "15388906455"
+        staffId:
+          type: "string"
+          example: "6aab1eeb-5a81-4927-8d42-5c83c5d37d1c"
+        staffName:
+          type: "string"
+          example: "聂晶"
+        staffStatus:
+          type: "string"
+          example: "IN_SERVICE"
+        totalLeaveDayHours:
+          type: "string"
+        totalLeaveDays:
+          type: "integer"
+          example: 0
+        totalLeaveHours:
+          type: "number"
+          example: 0
+        updateTime:
+          type: "string"
+          example: "1595495405000"
+        vacationType:
+          type: "string"
+          example: "SICK_LEAVE"
+    CalendarList:
+      type: "object"
+      properties:
+        code:
+          type: "string"
+          example: "0"
+        data:
+          type: "object"
+          properties:
+            content:
+              type: "array"
+              items:
+                $ref: "#/components/schemas/CalendarListContentItem"
+            end:
+              type: "boolean"
+              example: false
+            totalElements:
+              type: "integer"
+              example: 2
+            totalPages:
+              type: "integer"
+              example: 1
+        errorResult:
+          type: "boolean"
+          example: false
+        message:
+          type: "string"
+          nullable: true
+        showType:
+          type: "string"
+          example: "0"
+        url:
+          type: "string"
+          nullable: true
+    CalendarListContentItem:
+      type: "object"
+      properties:
+        baseOnStatutory:
+          type: "boolean"
+          example: true
+        createdAt:
+          type: "string"
+          example: "1592285140000"
+        id:
+          type: "string"
+          example: "0f3093a6-bd6b-41b4-9299-fe7f4eba6252"
+        isDefault:
+          type: "boolean"
+          example: true
+        name:
+          type: "boolean"
+          example: false
+        number:
+          type: "boolean"
+          example: false
+        specialDateEntityList:
+          type: "object"
+          nullable: true
+        specialDateMap:
+          type: "object"
+          nullable: true
+        type:
+          type: "string"
+          example: "WEEKLY"
+        workingDays:
+          type: "string"
+          example: "1111100"
+    ShiftList:
+      type: "object"
+      properties:
+        code:
+          type: "string"
+          example: "0"
+        data:
+          type: "object"
+          properties:
+            content:
+              type: "array"
+              items:
+                $ref: "#/components/schemas/ShiftListContentItem"
+            end:
+              type: "boolean"
+              example: false
+            totalElements:
+              type: "integer"
+              example: 2
+            totalPages:
+              type: "integer"
+              example: 1
+        errorResult:
+          type: "boolean"
+          example: false
+        message:
+          type: "string"
+          nullable: true
+        showType:
+          type: "string"
+          example: "0"
+        url:
+          type: "string"
+          nullable: true
+    ShiftListContentItem:
+      type: "object"
+      properties:
+        abbr:
+          type: "string"
+          example: "早九"
+        actualAttendanceRule:
+          type: "string"
+          example: "CROSS_SIGN"
+        colorIndex:
+          type: "string"
+          example: "3"
+        id:
+          type: "string"
+          example: "5c2a0087-fd18-4f47-a0f5-aae52cf4f336"
+        isDefault:
+          type: "boolean"
+          example: true
+        isDelayWork:
+          type: "boolean"
+          nullable: true
+        isFlexible:
+          type: "boolean"
+          example: false
+        name:
+          type: "string"
+          example: "早九晚五点半"
+        number:
+          type: "number"
+          example: 1
+        shiftType:
+          type: "string"
+          example: "NORMAL"
+        showTime:
+          type: "string"
+          nullable: true
+        workHours:
+          type: "number"
+          example: 7.5
+        workTime:
+          type: "array"
+          items:
+            type: "string"
+            example: "09:00-17:30"
+    GroupList:
+      type: "object"
+      properties:
+        code:
+          type: "string"
+          example: "0"
+        data:
+          type: "object"
+          properties:
+            content:
+              type: "array"
+              items:
+                $ref: "#/components/schemas/GroupListContentItem"
+            end:
+              type: "boolean"
+              example: false
+            totalElements:
+              type: "integer"
+              example: 2
+            totalPages:
+              type: "integer"
+              example: 1
+        errorResult:
+          type: "boolean"
+          example: false
+        message:
+          type: "string"
+          nullable: true
+        showType:
+          type: "string"
+          example: "0"
+        url:
+          type: "string"
+          nullable: true
+    GroupListContentItem:
+      type: "object"
+      properties:
+        allShift:
+          type: "string"
+          nullable: true
+        arrangerNames:
+          type: "array"
+          items:
+            type: "string"
+          default: []
+        calendarName:
+          type: "string"
+          example: "做五休二"
+        departmentNames:
+          type: "array"
+          items:
+            type: "string"
+          default: []
+        groupId:
+          type: "string"
+          example: "7ee84af9-ae1b-4ff7-b49d-b71988e22a9c"
+        groupName:
+          type: "string"
+          example: "固定分组"
+        number:
+          type: "number"
+          example: 1
+        positionNames:
+          type: "array"
+          items:
+            type: "string"
+          default: []
+        shiftList:
+          type: "array"
+          items:
+            $ref: "#/components/schemas/GroupListContentItemStaffListItem"
+        staffNames:
+          type: "array"
+          items:
+            type: "string"
+            example: "盛俊"
+    GroupListContentItemStaffListItem:
+      type: "object"
+      properties:
+        abbr:
+          type: "string"
+          example: "早九晚五点半 09:00-17:30"
+        colorIndex:
+          type: "integer"
+          example: 3
+        id:
+          type: "string"
+          nullable: true
+        shiftType:
+          type: "string"
+          example: "NORMAL"
+        workHours:
+          type: "integer"
+          nullable: true
+    SignCondition:
+      type: "object"
+      properties:
+        code:
+          type: "string"
+          example: "0"
+        data:
+          type: "object"
+          properties:
+            content:
+              type: "array"
+              items:
+                $ref: "#/components/schemas/SignConditionDataContentItem"
+            end:
+              type: "boolean"
+              example: false
+            totalElements:
+              type: "integer"
+              example: 3
+            totalPages:
+              type: "integer"
+              example: 1
+        errorResult:
+          type: "boolean"
+          example: false
+        message:
+          type: "string"
+          nullable: true
+        showType:
+          type: "string"
+          example: "0"
+        url:
+          type: "string"
+          nullable: true
+    SignConditionDataContentItem:
+      type: "object"
+      properties:
+        conditionType:
+          type: "string"
+          example: "员工自主签到考勤"
+        id:
+          type: "string"
+          example: "dcec5f4f-93fa-47af-b6ef-cdc94a3fee5f"
+        isDefault:
+          type: "boolean"
+          example: false
+        name:
+          type: "string"
+          example: "IT company"
+        updatedAt:
+          type: "string"
+          format: "date-time"
+    VacationRule:
+      type: "object"
+      properties:
+        code:
+          type: "string"
+          example: "0"
+        data:
+          type: "array"
+          items:
+            $ref: "#/components/schemas/VacationRuleDataItem"
+        errorResult:
+          type: "boolean"
+          example: false
+        message:
+          type: "string"
+          nullable: true
+        showType:
+          type: "string"
+          example: "0"
+        url:
+          type: "string"
+          nullable: true
+    VacationRuleDataItem:
+      type: "object"
+      properties:
+        calculationHours:
+          type: "number"
+          nullable: true
+        calculationUnit:
+          type: "string"
+          example: "DAY"
+        id:
+          type: "string"
+          example: "a6437374-9ca1-4029-bd85-81c0d14750f6"
+        isEnabled:
+          type: "boolean"
+          example: true
+        leaveName:
+          type: "string"
+          example: "年假"
+        maximumUnit:
+          type: "string"
+          nullable: true
+        sexScope:
+          type: "string"
+          nullable: true
+        smallestUnit:
+          type: "number"
+          example: 0.5
+        standardUnit:
+          type: "string"
+          example: "DAY"
+        stepUnit:
+          type: "string"
+          nullable: true
+        vacationRuleList:
+          type: "array"
+          items:
+            $ref: "#/components/schemas/VacationRuleListItem"
+        vacationType:
+          type: "string"
+          example: "ANNUAL_LEAVE"
+    VacationRuleListItem:
+      type: "object"
+      properties:
+        calculateType:
+          type: "string"
+          example: "SCHEDULE_WORKDAY"
+        isAllStaffAvailable:
+          type: "boolean"
+          example: false
+        isDefault:
+          type: "boolean"
+          example: true
+        isEnabled:
+          type: "boolean"
+          example: true
+        ruleId:
+          type: "string"
+          example: "b31d9f4d-e276-4783-ae39-2899e68e82ad"
+        ruleName:
+          type: "string"
+          example: "默认规则"
+        scopeName:
+          type: "string"
+          nullable: true
+        settingId:
+          type: "string"
+          nullable: true
+    AttendancePeriodSettingList:
+      type: "object"
+      properties:
+        code:
+          type: "string"
+          example: "0"
+        data:
+          type: "array"
+          items:
+            $ref: "#/components/schemas/AttendancePeriodSettingListDataItem"
+        errorResult:
+          type: "boolean"
+          example: false
+        message:
+          type: "string"
+          nullable: true
+        showType:
+          type: "string"
+          example: "0"
+        url:
+          type: "string"
+          nullable: true
+    AttendancePeriodSettingListDataItem:
+      type: "object"
+      properties:
+        allStaff:
+          type: "boolean"
+          example: false
+        companyId:
+          type: "string"
+          example: "36dbfa02cbe54b11a5543d46b5112168"
+        coverScopeList:
+          type: "string"
+          nullable: true
+        createdDate:
+          type: "string"
+          format: "date-time"
+          nullable: true
+        defaultPeriod:
+          type: "boolean"
+          example: true
+        departmentScopeList:
+          type: "string"
+          nullable: true
+        enabled:
+          type: "boolean"
+          example: true
+        excludeStaffScopeList:
+          type: "string"
+          nullable: true
+        id:
+          type: "string"
+          example: "2328d2b9-d1cb-4047-a847-41d71bdd61af"
+        isCover:
+          type: "string"
+          nullable: true
+        lockDays:
+          type: "string"
+          example: "0"
+        lockMonthlyReportType:
+          type: "string"
+          example: "MANUAL_LOCK"
+        periodEndDay:
+          type: "string"
+          example: "END_OF_MONTH"
+        periodEndMonth:
+          type: "string"
+          example: "THIS_MONTH"
+        periodName:
+          type: "string"
+          example: "默认考勤周期"
+        periodStartDay:
+          type: "string"
+          example: "1"
+        periodStartMonth:
+          type: "string"
+          example: "THIS_MONTH"
+        positionScopeList:
+          type: "string"
+          nullable: true
+        scopeStr:
+          type: "string"
+          nullable: true
+        staffTypeScopeList:
+          type: "string"
+          nullable: true
+    KpiPlan:
+      type: "object"
+      properties:
+        code:
+          type: "string"
+          example: "0"
+        data:
+          type: "object"
+          properties:
+            content:
+              type: "array"
+              items:
+                $ref: "#/components/schemas/KpiPlanDataContentItem"
+            end:
+              type: "boolean"
+              example: false
+            totalElements:
+              type: "integer"
+              example: 1
+            totalPages:
+              type: "integer"
+              example: 1
+        errorResult:
+          type: "boolean"
+          example: false
+        message:
+          type: "string"
+          nullable: true
+        showType:
+          type: "string"
+          example: "0"
+        url:
+          type: "string"
+          nullable: true
+    KpiPlanDataContentItem:
+      type: "object"
+      properties:
+        apmCycle:
+          type: "string"
+          example: "2020年9月"
+        apmExcStage:
+          type: "string"
+          example: "STAGE_1"
+        apmExcStageName:
+          type: "string"
+          example: "计划制定"
+        apmName:
+          type: "string"
+          example: "营销部测试"
+        appealEndDate:
+          type: "string"
+          format: "date"
+          nullable: true
+        carryRule:
+          type: "string"
+          example: "四舍五入"
+        confirmStartEndDate:
+          type: "string"
+          format: "date"
+          nullable: true
+        digit:
+          type: "string"
+          example: "0.1"
+        evaluateStartEndDate:
+          type: "string"
+          example: "2020-09-14~2020-09-30"
+        id:
+          type: "string"
+          example: "12cca222-257e-4803-9b40-6b561480f390"
+        planLeaderNames:
+          type: "string"
+          example: "郑晴(18268128047)"
+        resultConfirmEndDate:
+          type: "string"
+          format: "date"
+          nullable: true
+        retractEnable:
+          type: "boolean"
+          example: false
+    KpiNorm:
+      type: "object"
+      properties:
+        code:
+          type: "string"
+          example: "0"
+        data:
+          type: "object"
+          properties:
+            content:
+              type: "array"
+              items:
+                $ref: "#/components/schemas/KpiNormDataContentItem"
+            end:
+              type: "boolean"
+              example: false
+            totalElements:
+              type: "integer"
+              example: 4
+            totalPages:
+              type: "integer"
+              example: 1
+        errorResult:
+          type: "boolean"
+          example: false
+        message:
+          type: "string"
+          nullable: true
+        showType:
+          type: "string"
+          example: "0"
+        url:
+          type: "string"
+          nullable: true
+    KpiNormDataContentItem:
+      type: "object"
+      properties:
+        id:
+          type: "string"
+          example: "71aa02de-b481-4b11-8c44-7154f3993b6b"
+        normAttribute:
+          type: "string"
+          nullable: true
+        normAttributeName:
+          type: "string"
+          nullable: true
+        normCategory:
+          type: "string"
+          example: "normCategory_03"
+        normCategoryName:
+          type: "string"
+          example: "态度考核"
+        normCode:
+          type: "string"
+          example: "02"
+        normDesc:
+          type: "string"
+          example: "工作态度"
+        normLowScore:
+          type: "string"
+          example: "0"
+        normName:
+          type: "string"
+          example: "态度考核"
+        normNature:
+          type: "string"
+          example: "normNature_02"
+        normNatureName:
+          type: "string"
+          example: "定性"
+        normRange:
+          type: "array"
+          items:
+            type: "string"
+            example: "0"
+        normRangeName:
+          type: "string"
+          nullable: true
+        normScoreRange:
+          type: "string"
+          example: "0~100"
+        normStandard:
+          type: "string"
+          nullable: true
+        normTopScore:
+          type: "number"
+          example: 1E+2
+        scoreUnlimit:
+          type: "boolean"
+          example: false
+        selectedDepartments:
+          type: "string"
+          example: "杭州艾骊莎信息科技有限公司,销售部,人事部,财务部,销售部|销售1部,销售部|销售2部,销售部|刘,信息中心,行政部"
+    ResumeList:
+      type: "object"
+      properties:
+        index:
+          type: "string"
+          example: "12784"
+        pageData:
+          type: "object"
+          properties:
+            content:
+              type: "array"
+              items:
+                $ref: "#/components/schemas/ResumeListPageDataContentItem"
+            page:
+              type: "string"
+              example: "0"
+            rows:
+              type: "integer"
+              example: 0
+            totalElements:
+              type: "integer"
+              example: 1
+        ssl:
+          type: "boolean"
+          example: true
+        url:
+          type: "string"
+          example: "www.ihr360.com/web"
+    ResumeListPageDataContentItem:
+      type: "object"
+      properties:
+        applicationTime:
+          type: "string"
+          example: "1593589931000"
+        companyId:
+          type: "string"
+          example: "36dbfa02cbe54b11a5543d46b5112168"
+        contentId:
+          type: "string"
+          example: "a98f6feb-bb4f-41cb-8d24-3889cbb19d3b"
+        createdDate:
+          type: "string"
+          example: "1593589931000"
+        enablePreview:
+          type: "boolean"
+          example: false
+        hasRead:
+          type: "boolean"
+          example: true
+        id:
+          type: "string"
+          example: "1b09654b-9fb9-4596-9018-e8af9969ceb3"
+        isDeleted:
+          type: "boolean"
+          example: false
+        name:
+          type: "string"
+          example: "WhatsApp-Image-2020-06-26-at-14."
+        recycleTime:
+          type: "string"
+          example: "1593589931000"
+        resumeCategoryId:
+          type: "string"
+          example: "27f284ef-6272-4a19-927d-ace1bea4491d"
+        resumeSourceName:
+          type: "string"
+          example: "前程无忧"
+        resumeSourceType:
+          type: "string"
+          example: "JOB_51"
+        resumeStatus:
+          type: "string"
+          example: "WAIT_SCREEN"
+        resumeUploadName:
+          type: "string"
+          example: "上传简历"
+        resumeUploadType:
+          type: "string"
+          example: "JOB_UPLOAD"
+        sourceEmailId:
+          type: "string"
+          example: "c5d02261-4fae-4389-a5e5-e9a16029472d"
+        uploadResumeFileType:
+          type: "string"
+          example: "jpeg"
+        userId:
+          type: "string"
+          example: "96afabbd7430488c90e4f3f0cd8aff66"
+    StaffFlexMetaData:
+      type: "object"
+      properties:
+        data:
+          type: "object"
+          properties:
+            CertificateInfo:
+              type: "object"
+              properties:
+                childrenFunctionAuth:
+                  type: "object"
+                  example: {}
+                childrenFunctionCodes:
+                  type: "string"
+                  nullable: true
+                companyId:
+                  type: "string"
+                  example: "36dbfa02cbe54b11a5543d46b5112168"
+                createUserId:
+                  type: "string"
+                  nullable: true
+                description:
+                  type: "string"
+                  example: "员工证照"
+                displayName:
+                  type: "string"
+                  example: "员工证照"
+                entityName:
+                  type: "string"
+                  example: "cn.irenshi.meta.dto.roster.mysql.CertificateInfo"
+                fieldGroupList:
+                  type: "array"
+                  items:
+                    $ref: "#/components/schemas/FieldGroupListItem"
+                functionCode:
+                  type: "string"
+                  example: "tab_staff_certificate"
+                hasAuthority:
+                  type: "boolean"
+                  example: false
+                id:
+                  type: "string"
+                  example: "tab_staff_certificate"
+                isApprove:
+                  type: "boolean"
+                  example: false
+                isHide:
+                  type: "boolean"
+                  example: false
+                isReadOnly:
+                  type: "boolean"
+                  example: false
+                isSubSet:
+                  type: "boolean"
+                  example: false
+                isUpdate:
+                  type: "boolean"
+                  example: false
+                isValid:
+                  type: "boolean"
+                  example: true
+                lateUpdateTime:
+                  type: "string"
+                  format: "date-time"
+                  nullable: true
+                metaCode:
+                  type: "string"
+                  example: "tab_staff_certificate"
+                metaDataType:
+                  type: "string"
+                  example: "ENTITY"
+                sortNo:
+                  type: "string"
+                  example: "3"
+                tableName:
+                  type: "string"
+                  example: "tab_staff_certificate_flex"
+                updateOperatorMobile:
+                  type: "string"
+                  nullable: true
+                updateOperatorName:
+                  type: "string"
+                  nullable: true
+                usingInSalary:
+                  type: "boolean"
+                  nullable: true
+                usingInStaffRoster:
+                  type: "string"
+                  nullable: true
+            StaffEducation:
+              type: "object"
+              properties:
+                childrenFunctionAuth:
+                  type: "object"
+                  example: {}
+                childrenFunctionCodes:
+                  type: "string"
+                  nullable: true
+                companyId:
+                  type: "string"
+                  example: "36dbfa02cbe54b11a5543d46b5112168"
+                createUserId:
+                  type: "string"
+                  nullable: true
+                description:
+                  type: "string"
+                  example: "教育信息"
+                displayName:
+                  type: "string"
+                  example: "教育经历"
+                entityName:
+                  type: "string"
+                  example: "cn.irenshi.meta.dto.roster.mysql.StaffEducation"
+                fieldGroupList:
+                  type: "array"
+                  items:
+                    $ref: "#/components/schemas/FieldGroupListItem"
+                functionCode:
+                  type: "string"
+                  example: "tab_staff_education"
+                hasAuthority:
+                  type: "boolean"
+                  example: false
+                id:
+                  type: "string"
+                  example: "tab_staff_education"
+                isApprove:
+                  type: "boolean"
+                  example: false
+                isHide:
+                  type: "boolean"
+                  example: false
+                isReadOnly:
+                  type: "boolean"
+                  example: false
+                isSubSet:
+                  type: "boolean"
+                  example: false
+                isUpdate:
+                  type: "boolean"
+                  example: false
+                isValid:
+                  type: "boolean"
+                  example: true
+                lateUpdateTime:
+                  type: "string"
+                  nullable: true
+                metaCode:
+                  type: "string"
+                  example: "tab_staff_education"
+                metaDataType:
+                  type: "string"
+                  example: "ENTITY"
+                sortNo:
+                  type: "string"
+                  example: "1"
+                tableName:
+                  type: "string"
+                  example: "tab_staff_education_flex"
+                updateOperatorMobile:
+                  type: "string"
+                  nullable: true
+                updateOperatorName:
+                  type: "string"
+                  nullable: true
+                usingInSalary:
+                  type: "string"
+                  nullable: true
+                usingInStaffRoster:
+                  type: "string"
+                  nullable: true
+            StaffInfo:
+              type: "object"
+              properties:
+                childrenFunctionAuth:
+                  type: "object"
+                  example: {}
+                childrenFunctionCodes:
+                  type: "string"
+                  nullable: true
+                companyId:
+                  type: "string"
+                  example: "36dbfa02cbe54b11a5543d46b5112168"
+                createUserId:
+                  type: "string"
+                description:
+                  type: "string"
+                  example: "基础信息"
+                displayName:
+                  type: "string"
+                  example: "基础信息"
+                entityName:
+                  type: "string"
+                  example: "cn.irenshi.meta.dto.roster.mysql.StaffInfo"
+                fieldGroupList:
+                  type: "array"
+                  items:
+                    $ref: "#/components/schemas/FieldGroupListItem"
+                functionCode:
+                  type: "string"
+                  example: "tab_staff_info"
+                hasAuthority:
+                  type: "boolean"
+                  example: false
+                id:
+                  type: "string"
+                  example: "tab_staff_info"
+                isApprove:
+                  type: "boolean"
+                  example: false
+                isHide:
+                  type: "boolean"
+                  example: false
+                isReadOnly:
+                  type: "boolean"
+                  example: false
+                isSubSet:
+                  type: "boolean"
+                  example: false
+                isUpdate:
+                  type: "boolean"
+                  example: false
+                isValid:
+                  type: "boolean"
+                  example: true
+                lateUpdateTime:
+                  type: "string"
+                  format: "date-time"
+                  nullable: true
+                metaCode:
+                  type: "string"
+                  example: "tab_staff_info"
+                metaDataType:
+                  type: "string"
+                  example: "ENTITY"
+                sortNo:
+                  type: "integer"
+                  example: 0
+                tableName:
+                  type: "string"
+                  example: "tab_staff_info_flex"
+                updateOperatorMobile:
+                  type: "string"
+                  nullable: true
+                updateOperatorName:
+                  type: "string"
+                  nullable: true
+                usingInSalary:
+                  type: "string"
+                  nullable: true
+                usingInStaffRoster:
+                  type: "string"
+                  nullable: true
+            StaffJobHistory:
+              type: "object"
+              properties:
+                childrenFunctionAuth:
+                  type: "object"
+                  example: {}
+                childrenFunctionCodes:
+                  type: "string"
+                  nullable: true
+                companyId:
+                  type: "string"
+                  example: "36dbfa02cbe54b11a5543d46b5112168"
+                createUserId:
+                  type: "string"
+                  nullable: true
+                description:
+                  type: "string"
+                  example: "工作经历"
+                displayName:
+                  type: "string"
+                  example: "工作经历"
+                entityName:
+                  type: "string"
+                  example: "cn.irenshi.meta.dto.roster.mysql.StaffJobHistory"
+                fieldGroupList:
+                  type: "array"
+                  items:
+                    $ref: "#/components/schemas/FieldGroupListItem"
+                functionCode:
+                  type: "string"
+                  example: "tab_staff_job_history"
+                hasAuthority:
+                  type: "boolean"
+                  example: false
+                id:
+                  type: "string"
+                  example: "tab_staff_job_history"
+                isApprove:
+                  type: "boolean"
+                  example: false
+                isHide:
+                  type: "boolean"
+                  example: false
+                isReadOnly:
+                  type: "boolean"
+                  example: false
+                isSubSet:
+                  type: "boolean"
+                  example: false
+                isUpdate:
+                  type: "boolean"
+                  example: false
+                isValid:
+                  type: "boolean"
+                  example: true
+                lateUpdateTime:
+                  type: "string"
+                  nullable: true
+                metaCode:
+                  type: "string"
+                  example: "tab_staff_job_history"
+                metaDataType:
+                  type: "string"
+                  example: "ENTITY"
+                sortNo:
+                  type: "string"
+                  example: "2"
+                tableName:
+                  type: "string"
+                  example: "tab_staff_job_history_flex"
+                updateOperatorMobile:
+                  type: "string"
+                  nullable: true
+                updateOperatorName:
+                  type: "string"
+                  nullable: true
+                usingInSalary:
+                  type: "string"
+                  nullable: true
+                usingInStaffRoster:
+                  type: "string"
+                  nullable: true
+            tab_staff_subset_ptd:
+              type: "object"
+              properties:
+                childrenFunctionAuth:
+                  type: "object"
+                  example: {}
+                childrenFunctionCodes:
+                  type: "string"
+                  nullable: true
+                companyId:
+                  type: "string"
+                  example: "36dbfa02cbe54b11a5543d46b5112168"
+                createUserId:
+                  type: "string"
+                  nullable: true
+                description:
+                  type: "string"
+                  example: "个税申报"
+                displayName:
+                  type: "string"
+                  example: "个税申报"
+                entityName:
+                  type: "string"
+                  nullable: true
+                fieldGroupList:
+                  type: "array"
+                  items:
+                    $ref: "#/components/schemas/FieldGroupListItem"
+                functionCode:
+                  type: "string"
+                  example: "tab_staff_subset_ptd"
+                hasAuthority:
+                  type: "boolean"
+                  example: false
+                id:
+                  type: "string"
+                  example: "a03fbca7-7cda-4932-8532-593a10790dde"
+                isApprove:
+                  type: "boolean"
+                  example: false
+                isHide:
+                  type: "boolean"
+                  example: false
+                isReadOnly:
+                  type: "boolean"
+                  example: false
+                isSubSet:
+                  type: "boolean"
+                  example: false
+                isUpdate:
+                  type: "boolean"
+                  example: false
+                isValid:
+                  type: "boolean"
+                  example: true
+                lateUpdateTime:
+                  type: "string"
+                  nullable: true
+                metaCode:
+                  type: "string"
+                  example: "tab_staff_subset_ptd"
+                metaDataType:
+                  type: "string"
+                  example: "SUBSET"
+                sortNo:
+                  type: "string"
+                  example: "99"
+                tableName:
+                  type: "string"
+                  example: "tab_staff_subset_ptd"
+                updateOperatorMobile:
+                  type: "string"
+                  nullable: true
+                updateOperatorName:
+                  type: "string"
+                  nullable: true
+                usingInSalary:
+                  type: "string"
+                  nullable: true
+                usingInStaffRoster:
+                  type: "string"
+                  nullable: true
+        errorCode:
+          type: "string"
+          nullable: true
+        errorMessage:
+          type: "string"
+          nullable: true
+        errorMessageList:
+          type: "string"
+          nullable: true
+        errorNumber:
+          type: "string"
+          nullable: true
+        noValidateNumber:
+          type: "string"
+          nullable: true
+        result:
+          type: "boolean"
+          example: true
+        totalNumber:
+          type: "number"
+          nullable: true
+    FieldGroupListItem:
+      type: "object"
+      properties:
+        description:
+          type: "string"
+          example: "默认分组"
+        displayName:
+          type: "string"
+          example: "默认分组"
+        engName:
+          type: "string"
+          nullable: true
+        entityName:
+          type: "string"
+          nullable: true
+        fieldList:
+          type: "array"
+          items:
+            $ref: "#/components/schemas/FieldGroupListItemFieldListItem"
+        id:
+          type: "string"
+          example: "e0747fc8-5d39-4610-8d4d-4b561d8932fe"
+        metaCode:
+          type: "string"
+          example: "tab_staff_certificate.default"
+        metaDataCode:
+          type: "string"
+          example: "tab_staff_certificate"
+        sortNo:
+          type: "string"
+          example: "-1"
+        subSetName:
+          type: "string"
+          nullable: true
+    FieldGroupListItemFieldListItem:
+      type: "object"
+      properties:
+        chineseName:
+          type: "string"
+          nullable: true
+        codeTypeId:
+          type: "string"
+          example: "Enum.CertificateType"
+        codeValueList:
+          type: "array"
+          items:
+            $ref: "#/components/schemas/FieldGroupListItemFieldListItemCodeValueListItem"
+        columnName:
+          type: "string"
+          example: "certificateType"
+        companyId:
+          type: "string"
+          nullable: true
+        defaultValue:
+          type: "string"
+          nullable: true
+        description:
+          type: "string"
+          nullable: true
+        displayName:
+          type: "string"
+          example: "证照类型"
+        engName:
+          type: "string"
+          nullable: true
+        exportSelected:
+          type: "boolean"
+          example: false
+        fieldGroupId:
+          type: "string"
+          example: "tab_staff_certificate"
+        fieldName:
+          type: "string"
+          example: "certificateType"
+        fieldType:
+          type: "string"
+          example: "CODE_TYPE"
+        flexTableSelectField:
+          type: "boolean"
+          example: false
+        functionCode:
+          type: "string"
+          example: "tab_staff_certificate"
+        groupId:
+          type: "string"
+          nullable: true
+        id:
+          type: "string"
+          example: "tab_staff_certificate.certificateType"
+        isApprove:
+          type: "boolean"
+          example: false
+        isCompanyField:
+          type: "boolean"
+          example: false
+        isCustomSubset:
+          type: "boolean"
+          nullable: true
+        isEntryConfig:
+          type: "boolean"
+          nullable: true
+        isFixed:
+          type: "boolean"
+          example: false
+        isHide:
+          type: "boolean"
+          example: false
+        isMain:
+          type: "boolean"
+          example: true
+        isNameable:
+          type: "boolean"
+          nullable: true
+        isReadOnly:
+          type: "boolean"
+          example: false
+        isRequired:
+          type: "boolean"
+          example: true
+        isSystem:
+          type: "boolean"
+          example: true
+        isUnique:
+          type: "boolean"
+          nullable: true
+        isUpdate:
+          type: "boolean"
+          example: false
+        isValid:
+          type: "boolean"
+          example: true
+        maximumValue:
+          type: "number"
+          nullable: true
+        metaCode:
+          type: "string"
+          example: "tab_staff_certificate.certificateType"
+        metaDataCode:
+          type: "string"
+          example: "tab_staff_certificate"
+        metaDataId:
+          type: "string"
+          example: "e0747fc8-5d39-4610-8d4d-4b561d8932fe"
+        minimumValue:
+          type: "number"
+          nullable: true
+        notMainOrDimension:
+          type: "boolean"
+          example: false
+        openValid:
+          type: "boolean"
+          example: false
+        selected:
+          type: "boolean"
+          example: false
+        valueLength:
+          type: "number"
+          example: 4E+1
+        valuePattern:
+          type: "string"
+          nullable: true
+    FieldGroupListItemFieldListItemCodeValueListItem:
+      type: "object"
+      properties:
+        codeTypeId:
+          type: "string"
+          example: "Enum.CertificateType"
+        codeValue:
+          type: "string"
+          example: "IDCard"
+        companyId:
+          type: "string"
+          example: "system-default-company-id"
+        description:
+          type: "string"
+          example: "IDCard"
+        displayName:
+          type: "string"
+          example: "居民身份证"
+        engName:
+          type: "string"
+          example: "IDCard"
+        id:
+          type: "string"
+          example: "CertificateType.IDCard"
+        isSystem:
+          type: "boolean"
+          example: true
+        isValid:
+          type: "boolean"
+          example: true
+        metaCode:
+          type: "string"
+          example: "CertificateType.IDCard"
+        parentId:
+          type: "string"
+          nullable: true
+        sortNo:
+          type: "string"
+          example: "1"
+    AllEntryMetaData:
+      type: "object"
+      properties:
+        data:
+          type: "object"
+          properties:
+            entryFlexFieldMap:
+              type: "object"
+              properties:
+                entryMetaData:
+                  type: "array"
+                  items:
+                    $ref: "#/components/schemas/EntryMetaDataItem"
+        errorCode:
+          type: "string"
+          nullable: true
+        errorMessage:
+          type: "string"
+          nullable: true
+        errorMessageList:
+          type: "string"
+          nullable: true
+        errorNumber:
+          type: "string"
+          nullable: true
+        noValidateNumber:
+          type: "string"
+          nullable: true
+        result:
+          type: "boolean"
+          example: true
+        totalNumber:
+          type: "number"
+          nullable: true
+    EntryMetaDataItem:
+      type: "object"
+      properties:
+        description:
+          type: "string"
+          example: "默认分组"
+        displayName:
+          type: "string"
+          example: "默认分组"
+        engName:
+          type: "string"
+          nullable: true
+        entityName:
+          type: "string"
+          nullable: true
+        fieldList:
+          type: "array"
+          items:
+            $ref: "#/components/schemas/EntryMetaDataFieldListItem"
+        id:
+          type: "string"
+          example: "22ad9aa3-7c87-4195-9db6-227f269cbd3a"
+        metaCode:
+          type: "string"
+          example: "tab_staff_info.default"
+        metaDataCode:
+          type: "string"
+          example: "tab_staff_info"
+        sortNo:
+          type: "string"
+          example: "-1"
+        subSetName:
+          type: "string"
+          example: "基础信息"
+    EntryMetaDataFieldListItem:
+      type: "object"
+      properties:
+        codeTypeId:
+          type: "string"
+          nullable: true
+        codeValueList:
+          type: "string"
+          nullable: true
+        columnName:
+          type: "string"
+          example: "staffName"
+        companyId:
+          type: "string"
+          nullable: true
+        defaultValue:
+          type: "string"
+          nullable: true
+        description:
+          type: "string"
+          nullable: true
+        displayName:
+          type: "string"
+          example: "姓名"
+        engName:
+          type: "string"
+          nullable: true
+        fieldGroupId:
+          type: "string"
+          example: "22ad9aa3-7c87-4195-9db6-227f269cbd3a"
+        fieldId:
+          type: "string"
+          example: "tab_staff_info.staffName"
+        fieldName:
+          type: "string"
+          example: "staffName"
+        fieldType:
+          type: "string"
+          example: "STRING"
+        flexTableSelectField:
+          type: "boolean"
+          example: false
+        groupId:
+          type: "string"
+          example: "22ad9aa3-7c87-4195-9db6-227f269cbd3a"
+        groupName:
+          type: "string"
+          nullable: true
+        id:
+          type: "string"
+          example: "tab_staff_info.staffName"
+        isEntryRequired:
+          type: "boolean"
+          example: true
+        isFixed:
+          type: "boolean"
+          example: true
+        isMain:
+          type: "boolean"
+          example: true
+        isNameable:
+          type: "boolean"
+          example: false
+        isRequired:
+          type: "boolean"
+          example: true
+        isShow:
+          type: "boolean"
+          example: true
+        isSystem:
+          type: "boolean"
+          example: true
+        isUnique:
+          type: "boolean"
+          nullable: true
+        isValid:
+          type: "boolean"
+          example: true
+        maximumValue:
+          type: "number"
+          nullable: true
+        metaCode:
+          type: "string"
+          example: "tab_staff_info.staffName"
+        metaDataId:
+          type: "string"
+          example: "tab_staff_info"
+        minimumValue:
+          type: "number"
+          nullable: true
+        notMainOrDimension:
+          type: "boolean"
+          example: false
+        selected:
+          type: "boolean"
+          example: false
+        valueLength:
+          type: "number"
+          example: 32
+        valuePattern:
+          type: "string"
+          nullable: true
+  requestBodies:
+    WorkExperience:
+      content:
+        application/json:
+          schema:
+            type: "array"
+            items:
+              $ref: "#/components/schemas/WorkExperience"
+    EmployeeCertificate:
+      content:
+        appliation/json:
+          schema:
+            type: "array"
+            items:
+              $ref: "#/components/schemas/EmployeeCertificate"
+    AddStaffAgreement:
+      content:
+        application/json:
+          schema:
+            type: "array"
+            items:
+              $ref: "#/components/schemas/AddStaffAgreement"
+    AddEntryForm:
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/AddEntryForm"
+  securitySchemes:
+    petstore_auth:
+      type: "oauth2"
+      flows:
+        implicit:
+          authorizationUrl: "http://petstore.swagger.io/oauth/dialog"
+          scopes:
+            write:pets: "modify pets in your account"
+            read:pets: "read your pets"
